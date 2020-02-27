@@ -47,14 +47,36 @@ cd tallernode
 ```
 
 Inicializar el proyecto crea el archivo package.json
+
 ```
-npm init
+npm init 
 ```
+![npm_init](/img/01_npm_init.png)
 
 ## El archivo package.json
 
+## Instalación de proyecto
+
+```
+npm install
+```
 
 2. "Hola Mundo" con Node
+
+Creamos un archivo *server.js*
+
+```javascript
+console.log("Hola IES Trassierra')
+```
+
+Desde terminal ejecutamos el archivo
+
+```
+node server.js
+```
+
+Podemos abrir node desde consola. Es igual que si abrimos las Herramientas de desarrollador de nuestro navegador.
+
 3. MongoDB
 3. ExpressJS
-c
+
