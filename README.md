@@ -23,13 +23,18 @@ Taller sobre Node, APIRest y Mongo impartido en la Jornadas de Informática 2020
 sudo apt update
 sudo apt install nodejs
 sudo apt install npm
-nodejs -v
 ```
 
 Actualizar la versión npm
 
 ```
 npm install npm@latest -g
+```
+
+Revisando versiones
+```
+nodejs -v
+npm -v
 ```
 
 ## Npm
@@ -40,6 +45,7 @@ Creamos la carpeta 'tallernode'
 mkdir tallernode
 cd tallernode
 ```
+
 Inicializar el proyecto crea el archivo package.json
 ```
 npm init
