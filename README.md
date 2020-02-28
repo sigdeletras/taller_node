@@ -75,7 +75,7 @@ npm init
 
 ### El archivo *package.json*
 
-- Dentro de este archivo se definen y manejan características como:
+Dentro de este archivo se definen y manejan características como:
 - Nombre de tu proyecto.
 - Versión.
 - Dependencias.
@@ -84,16 +84,70 @@ npm init
 - Licencia.
 - Y más.
 
-- Instalando módulos
+### Instalando módulos.
 
-## Instalación de proyecto
+Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que necesitemos.  Accediendo a la página de npm podremos localizar el módulo que necesitemos con información sobre su uso.
+
+[npm](img/02_pagina_npm.png)
+
+La instalación puede hacerse de forma global o para el proyecto
+
+Instalación global (con permisos root)
+
+```
+npm install -g <nombre-paquete>
+```
+
+Instalación dentro del proyecto. Se añade en el apartado de dependencias de *package.json*
+
+```
+npm install <nombre-paquete> --save
+npm -i <nombre-paquete> -S
+```
+
+Otros comandos
+
+```
+npm uninstall <nombre-paquete> //
+npm update <nombre-paquete>
+npm install nodemon --save-dev
+```
+
+Instalamos el paquete Express
+```
+npm install express -S
+```
+
+Comprobamos que se ha creado la carpeta **/node_modules** y se ha añadido Express como dependencia de nuestro proyecto.
+
+![dependencias](img/03_dependencias.png)
+
+**Si ya tuviéramos el archivo de instalación podríamos instalarlo con npm install**
 
 ```
 npm install
 ```
 
+# 03 Servidor con ExpressJS
 
+Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
 
-3. MongoDB
-3. ExpressJS
+```javascript
+const express = require('express');
+const app = express();
 
+app.get('/', function (req, res) {
+  res.send('Hola Trassierra');
+});
+
+app.listen(3000, function () {
+  console.log('Servidor escuchando en el puerto 3000!');
+});
+```
+
+Montamos nuestro servidor
+```
+node server
+```
+
+Accedemos a [http://localhost:3000/](http://localhost:3000/)
