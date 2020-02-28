@@ -37,33 +37,11 @@ nodejs -v
 npm -v
 ```
 
-## Npm
+## 01 Hola mundo
 
-Creamos la carpeta 'tallernode'
+2. "Hola Mundo" con node
 
-```
-mkdir tallernode
-cd tallernode
-```
-
-Inicializar el proyecto crea el archivo package.json
-
-```
-npm init 
-```
-![npm_init](/img/01_npm_init.png)
-
-## El archivo package.json
-
-## Instalación de proyecto
-
-```
-npm install
-```
-
-2. "Hola Mundo" con Node
-
-Creamos un archivo *server.js*
+Creamos un archivo *holamundo.js*
 
 ```javascript
 console.log("Hola IES Trassierra')
@@ -72,10 +50,49 @@ console.log("Hola IES Trassierra')
 Desde terminal ejecutamos el archivo
 
 ```
-node server.js
+node holamundo.js
 ```
 
 Podemos abrir node desde consola. Es igual que si abrimos las Herramientas de desarrollador de nuestro navegador.
+
+## 02 Iniciando el proyecto e instalando módulos con NPM
+
+Además de ser el instalador de paquetes de Node, permite lanzar comandos para iniciar un proyecto o instalar dependencias.
+
+### Creamos la carpeta 'demoapi'.
+
+```
+mkdir demoapi
+cd demoapi
+```
+
+### Inicializamos el proyecto creando el archivo *package.json*. Iremos completando la información del asistente. 
+
+```
+npm init 
+```
+![npm_init](/img/01_npm_init.png)
+
+### El archivo *package.json*
+
+- Dentro de este archivo se definen y manejan características como:
+- Nombre de tu proyecto.
+- Versión.
+- Dependencias.
+- Repositorio.
+- Autores.
+- Licencia.
+- Y más.
+
+- Instalando módulos
+
+## Instalación de proyecto
+
+```
+npm install
+```
+
+
 
 3. MongoDB
 3. ExpressJS

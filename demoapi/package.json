@@ -1,0 +1,11 @@
+{
+    "name": "tallernode",
+    "version": "1.0.0",
+    "description": "Taller Node, Express y MongoDB",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Patricio Soriano @SIGdeletras",
+    "license": "ISC"
+}
