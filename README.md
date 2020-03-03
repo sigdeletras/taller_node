@@ -133,12 +133,21 @@ npm install
 Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
 
 ```javascript
-const express = require('express');
+// Incluimos el módulo mediante require y creamos una aplicación de Express.
+
+const express = require('express'); 
 const app = express();
+
+// Definición de ruta que que se llamará cuando se realice una petición GET
+// que ejecutará una función (callback) que nos envía un conjunto de caracteres
+// como respuesta.
 
 app.get('/', function (req, res) {
   res.send('Hola Trassierra');
 });
+
+// Define y crea el servidor, escuchando el puerto 3000 
+// e imprime un comentario en la consola.
 
 app.listen(3000, function () {
   console.log('Servidor escuchando en el puerto 3000!');
@@ -146,8 +155,262 @@ app.listen(3000, function () {
 ```
 
 Montamos nuestro servidor
+
 ```
 node server
 ```
 
 Accedemos a [http://localhost:3000/](http://localhost:3000/)
+
+
+**Ejemplo de rutas**
+
+```javascript
+
+
+```
+
+Atención a POST
+
+npm install body-parser --save
+
+pruebas post
+
+explicar los application type
+
+
+
+**Nodemon**
+
+[https://nodemon.io/](https://nodemon.io/)
+
+- Librería que reinicia el servidor automáticamente tras salvar cambios.
+- Puedes instalarse de forma global.
+- O como dependencia de desarrollo en nuestro proyecto
+
+```
+npm install --save-dev nodemon
+```
+
+Podemos crear un script dentro de nuestro package.json para lanzarlo.
+
+```
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+```
+
+Y lanzamos nuestro servidor
+
+```
+npm run dev
+```
+
+## 05 Añadir carpeta para servir archivos estáticos**
+
+Para el servicio de archivos estáticos como, por ejemplo, imágenes, archivos CSS y archivos JavaScript, usamos la función de middleware incorporado express.static de Express.
+
+- Crear una carpeta llamada /public
+
+Definimos el acceso virtual (/static) que accede a la carpeta /public mediane la vía de acceso absoluta del directorio al que desea dar servicio.
+
+```Javascript
+app.use('/static', express.static(__dirname + '/public'));
+```
+
+# 06 Manejadores de rutas. Importación de módulos. 
+
+Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
+
+**Estructura basada en componentes**
+- /componente
+  - /cliente
+    - cliente_modelo.js
+    - cliente_controlador.js
+    - cliente_test.js
+    - ...
+  - /bar
+    - bar_modelo.js
+    - bar_controlador.js
+    - bar_test.js
+
+
+**Estructura en arquitectura lógica**
+- /controladores
+  - cliente_controlador.js
+  - bar_controlador.js
+  - ...
+- /modelos
+  - cliente_modelo.js
+  - bar_modelo.js
+- /vistas
+  - cliente_vista.js
+  - bar_vista.js
+- /test
+  - cliente_test.js
+  - bar_test.js
+
+
+Al independizar/agrupar archivos en carpetas/fciheros debemos configurarlos para que pueden ser leídos desde otros módulos
+
+- Llamamos a un módulo mediante la función require()
+- Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con
+
+```javascript
+module.export.nombre_variable
+module.export.nombre_funcion
+
+module.export = {
+  nombre_variable,
+  nombre_funcion
+}
+```
+
+Vamos a aplicar este concepto para separa nuestro archivo de rutas
+
+- Creamos la carpeta *routes*
+- Creamos archivo *apiRoutes.js*
+- Obtenemos los módulos necesarios
+
+```Javascript
+const express = require('express');
+const router = express.Router();
+```
+
+- Pasamos las peticiones del archivo server.js al nuevo fichero. Debemos modificar el código para que usar la constante router
+
+```Javascript
+router.get('/users', function(req, res) {
+    res.json(usuarios)
+})
+
+router.get('/user/:nombre/:edad', function(req, res) {
+    let nombre = req.params.nombre
+    let edad = req.params.edad
+
+    res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
+})
+```
+- Debemos añadir el método que exporta las variables y funciones
+
+```Javascript
+module.exports = router;
+```
+
+- Usamos require para usar el nuevo archivo en server.js y lo usamos añadiendo el prefijo /api a todas las peticiones creadas en el archivo
+
+```Javascript
+const apiRoutes = require('./routes/apiRoutes');
+app.use('/api', apiRoutes);
+
+```
+
+# Base de datos Mongo
+
+https://tutobasico.com/instalar-mongodb-win10/
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+Video https://www.youtube.com/watch?v=2KMQdqDk9e8
+
+
+
+https://www.digitalocean.com/community/tutorials/como-instalar-mongodb-en-ubuntu-18-04-es
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+
+Comprobamos que tenemos el servidor de mongodb iniciado
+
+```
+sudo service mongod status
+```
+
+Para iniciar/parar
+
+```
+sudo service mongod start
+sudo service mongod stop
+```
+**GUI**
+
+- Compass
+- Robo 3T [https://robomongo.org/](https://robomongo.org/)
+
+
+## Conexión mediante Mongoose
+
+Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+
+- Instalamos mongoose
+
+```
+npm i mongoose -S
+```
+
+Añadimos el módulo y la conexión a *server.js*
+
+```Javascript
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/demoapi', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(
+        () => { console.log("Conexión a DB realizada"); },
+        (err) => { console.log(`Error en la conexión a la DB${err}`); },
+    );
+```
+
+## 08 Creando modelos con Mongoose
+
+- Creamos una nueva capa *models*
+
+
+## 08 Creando controladores
+
+- Creamos una nueva capa *controllers*
+
+
+# 99 test
+
+- Navegador
+- Uso del comando  curl
+
+```
+curl --location --request GET 'http://localhost:3000/'
+```
+- Aplicaciones para testeto de API, ej. [Postman](https://www.postman.com/).
+- Creando test. Mocha y chai nos permiten crear pruebas unitarias
+  - [Mocha](https://mochajs.org/). Marco de prueba de JavaScript para Node.js
+  - [Chai](https://www.chaijs.com/) Librería JS sobreescribe el método assert añadiendo algunas posibilidades, como comprobar que un valor es mayor o menor que uno dado, o que un objeto no es null. Chai is an assertion library, similar to Node's built-in assert. It makes testing much easier by giving you lots of assertions you can run against your code.
+  Chai tiene varias interfaces: assert, expect y should, que permiten al desarrollador elegir el estilo que le resulte más legible y cómodo a la hora de desarrollar sus tests
+
+Instalación como dependencias de desarrollo
+```
+npm install chai mocha --save-dev
+```
+
+Creamos carpeta *tests* dentro del proyacto
+
+```
+mkdir test
+```
+
+Creamos un script dentro de *package.json* para lazar nuestros test.
+
+```json
+ "scripts": {
+        ...
+        "test": "mocha tests/*.js --exit",
+        ...
+    },
+```
+
+### Creando un test
+
+Describe
+
+En esta parte definimos bloques de pruebas podemos tener varios bloques de pruebas y relacionarlos entre sí en otras palabras es una descripción general de nuestras pruebas.
+
+It
+
+Los it se refiere a cada una de las pruebas es decir dentro de un describe podemos tener varios it que son las pruebas de eses describe.

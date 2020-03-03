@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+
+app.use('/static', express.static(__dirname + '/public'));
+
 app.get('/', function(req, res) {
     res.send('Hola Trassierra');
 });

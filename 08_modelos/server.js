@@ -46,4 +46,4 @@ app.listen(3000, function() {
     console.log('Servidor escuchando en el puerto 3000!');
 });
 
-module.exports = app; // Para test
+// module.exports = app; // Para test
