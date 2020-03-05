@@ -15,3 +15,6 @@ https://developer.mozilla.org/es/docs/Web/HTTP/Methods/POST
 https://johnserrano.co/blog/test-con-mocha-y-chai
 
 https://tutobasico.com/instalar-mongodb-win10/
+
+Securizar
+https://auth0.com/blog/node-js-and-express-tutorial-building-and-securing-restful-apis/
