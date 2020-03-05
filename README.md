@@ -1,13 +1,14 @@
-# Montando una APIRest con Node, Express y MongoDB
+# Montando una APIRest con Nodejs, Express y MongoDB
 
-Taller sobre Node, APIRest y Mongo impartido en la Jornadas de Informática 2020 del IES Trassierra
+Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 2020 del IES Trassierra
 
-**Requisitos**
+# 0. Requisitos
 
 - [Nodejs](https://nodejs.org/es/)
 - [npm]()
 - [ExpressJS]()
 - [MongoDB]()
+- Cliente REST [Postman]() / [Insommnia]()
 - Editor de código. Ej [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Instalación
@@ -37,9 +38,8 @@ nodejs -v
 npm -v
 ```
 
-## 01 Hola mundo
+# 01 'Hola mundo' con Javascript
 
-2. "Hola Mundo" con node
 
 Creamos un archivo *holamundo.js*
 
@@ -55,27 +55,27 @@ node holamundo.js
 
 Podemos abrir node desde consola. Es igual que si abrimos las Herramientas de desarrollador de nuestro navegador.
 
-## 02 Iniciando el proyecto e instalando módulos con NPM
+# 02 Iniciar proyecto e instalando módulos con NPM
 
-Además de ser el instalador de paquetes de Node, permite lanzar comandos para iniciar un proyecto o instalar dependencias.
+Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto o instalar dependencias.
 
-### Creamos la carpeta 'demoapi'.
+- Creamos la carpeta 'demoapi'.
 
 ```
 mkdir demoapi
 cd demoapi
 ```
 
-### Inicializamos el proyecto creando el archivo *package.json*. Iremos completando la información del asistente. 
+- Inicializamos el proyecto creando el archivo *package.json*. Iremos completando la información del asistente. 
 
 ```
 npm init 
 ```
 ![npm_init](/img/01_npm_init.png)
 
-### El archivo *package.json*
 
-Dentro de este archivo se definen y manejan características como:
+Dentro de *package.json* se definen y manejan características como:
+
 - Nombre de tu proyecto.
 - Versión.
 - Dependencias.
@@ -90,7 +90,7 @@ Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que 
 
 [npm](img/02_pagina_npm.png)
 
-La instalación puede hacerse de forma global o para el proyecto
+La instalación puede hacerse de forma global o para el proyecto: 
 
 Instalación global (con permisos root)
 
@@ -113,7 +113,7 @@ npm update <nombre-paquete>
 npm install nodemon --save-dev
 ```
 
-Instalamos el paquete Express
+- Instalamos el paquete Express
 ```
 npm install express -S
 ```
@@ -130,7 +130,7 @@ npm install
 
 # 03 Servidor con ExpressJS
 
-Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
+- Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
 
 ```javascript
 // Incluimos el módulo mediante require y creamos una aplicación de Express.
@@ -154,16 +154,16 @@ app.listen(3000, function () {
 });
 ```
 
-Montamos nuestro servidor
+- Arrancamos el servidor
 
 ```
 node server
 ```
 
-Accedemos a [http://localhost:3000/](http://localhost:3000/)
+- Accedemos a [http://localhost:3000/](http://localhost:3000/)
 
 
-**Ejemplo de rutas**
+# 04 Peticiones HTTP
 
 ```javascript
 
