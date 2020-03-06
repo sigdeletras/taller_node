@@ -4,12 +4,14 @@
 - [Directory structure for JavaScript/Node Projects](https://gist.github.com/tracker1/59f2c13044315f88bee9
 - The Node.js best practices list (February 2020) https://twitter.com/nodepractices/ https://github.com/goldbergyoni/nodebestpractices
 
-- https://stackabuse.com/get-http-post-body-in-express-js/
+Require
 
+https://programacionymas.com/blog/modulos-javascript-commonjs-amd-ecmascript
 
 Post
 
 - https://developer.mozilla.org/es/docs/Web/HTTP/Methods/POST
+- https://stackabuse.com/get-http-post-body-in-express-js/
 
 Test mocha /chai
 

@@ -164,8 +164,36 @@ node server
 
 - Accedemos a [http://localhost:3000/](http://localhost:3000/)
 
+- Modificamos el mensaje por el de 'Hola DAW'
+- Para aplicar los cambios debemos para el servicio con Ctrl+c
+
+## Nodemon
+
+![Nodemon](img/04_nodemon.png)
+
+- [Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
+
+```
+npm install --save-dev nodemon
+```
+
+Podemos crear un script dentro de nuestro package.json para lanzarlo.
+
+```
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+```
+
+Y lanzamos nuestro servidor con Nodemon usando *npm run <nombrescript>*
+
+```
+npm run start
+```
 
 # 04 Peticiones HTTP
+
+
 
 GET
 
@@ -222,32 +250,6 @@ pruebas post
 explicar los application type
 
 
-
-**Nodemon**
-
-[https://nodemon.io/](https://nodemon.io/)
-
-- Librería que reinicia el servidor automáticamente tras salvar cambios.
-- Puedes instalarse de forma global.
-- O como dependencia de desarrollo en nuestro proyecto
-
-```
-npm install --save-dev nodemon
-```
-
-Podemos crear un script dentro de nuestro package.json para lanzarlo.
-
-```
-  "scripts": {
-    "dev": "nodemon server.js"
-  },
-```
-
-Y lanzamos nuestro servidor
-
-```
-npm run dev
-```
 
 ## 05 Añadir carpeta para servir archivos estáticos**
 
