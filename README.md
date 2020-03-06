@@ -168,7 +168,7 @@ node server
 - Accedemos a [http://localhost:3000/](http://localhost:3000/)
 
 - Modificamos el mensaje por el de 'Hola DAW'
-- Para aplicar los cambios debemos para el servicio con Ctrl+c
+- Para aplicar los cambios debemos para el servicio con *Ctrl+c*
 
 ## Nodemon
 
@@ -176,23 +176,28 @@ node server
 
 [Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
 
+- Instalamos nodemon como dependencia de desarrollo.
 ```
 npm install --save-dev nodemon
 ```
 
-Podemos crear un script dentro de nuestro package.json para lanzarlo.
+- Creamos un script dentro de nuestro package.json para lanzarlo con *npm*
 
 ```
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
 ```
 
-Y lanzamos nuestro servidor con Nodemon usando *npm run <nombrescript>*
+- Lanzamos nuestro servidor con Nodemon usando *npm run <nombrescript>*
 
 ```
-npm run start
+npm run dev
 ```
+
+- Cambiamos el texto para la petición GET y vemos como se actualiza sin necesidad de reiniciar el servicio.
+
+![Nodemon funcionando](img/04_nodemon_funcionando.png)
 
 # 04 Peticiones HTTP
 
