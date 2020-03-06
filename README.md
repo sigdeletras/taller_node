@@ -88,7 +88,7 @@ Dentro de *package.json* se definen y manejan características como:
 
 Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que necesitemos.  Accediendo a la página de npm podremos localizar el módulo que necesitemos con información sobre su uso.
 
-[npm](img/02_pagina_npm.png)
+![npm](img/02_pagina_npm.png)
 
 La instalación puede hacerse de forma global o para el proyecto: 
 
@@ -171,8 +171,8 @@ GET
 
 - Método HTTP
 - Ruta
-- callback. Parámetros de petición/respesta/error
-- Formato del objeto respuesta
+- Callback. Parámetros de petición/respesta/error
+- Formato del objeto respuesta mediante middleware de Express
 
 ```javascript
 app.get('/pelicula', function(req, res) {
