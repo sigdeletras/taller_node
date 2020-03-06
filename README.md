@@ -33,7 +33,8 @@ Actualizar la versión npm
 npm install npm@latest -g
 ```
 
-Revisando versiones
+Revisando que todo vaya bien....
+
 ```
 nodejs -v
 npm -v
@@ -83,7 +84,8 @@ Dentro de *package.json* se definen y manejan características como:
 - Repositorio.
 - Autores.
 - Licencia.
-- Y más.
+
+Más [+info](https://medium.com/noders/t%C3%BA-yo-y-package-json-9553929fb2e3)
 
 ### Instalando módulos.
 
