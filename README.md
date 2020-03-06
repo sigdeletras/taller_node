@@ -13,12 +13,13 @@ Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 20
 
 ## Instalación
 
-**Windows**
+## Windows
 
-[https://nodejs.org/es/download/](https://nodejs.org/es/download/)
+- [https://nodejs.org/es/download/](https://nodejs.org/es/download/)
 
-**Linux**
-[Cómo instalar Node.js en Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/como-instalar-node-js-en-ubuntu-18-04-es)
+### Linux
+
+- [Cómo instalar Node.js en Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/como-instalar-node-js-en-ubuntu-18-04-es)
 
 ```
 sudo apt update
@@ -171,7 +172,7 @@ node server
 
 ![Nodemon](img/04_nodemon.png)
 
-- [Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
+[Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
 
 ```
 npm install --save-dev nodemon
