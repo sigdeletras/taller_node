@@ -201,9 +201,7 @@ npm run dev
 
 # 04 Peticiones HTTP
 
-
-
-GET
+## GET
 
 - Método HTTP
 - Ruta
@@ -266,21 +264,41 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
 });
 ```
 
-- Para obtener los parámetros
+## POST
 
-Nencesitamos añadir los middleware de Express url-encode y json en server.jos
+Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesita instalar un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser). 
 
-var bodyParser = require('body-parser')
+body-parser extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
 
-Atención a POST
+- bodyParser.urlencoded () : analiza el texto como datos codificados de URL (que es la forma en que los navegadores tienden a enviar datos de formularios de formularios regulares establecidos a POST) y expone el objeto resultante (que contiene las claves y valores) en req.body. Para comparacion; en PHP todo esto se hace automáticamente y se expone en $_POST.
 
+- bodyParser.json () : analiza el texto como JSON y expone el objeto resultante en req.body.
+
+```
 npm install body-parser --save
+```
 
-pruebas post
+Y lo añadimos con require a server.js
 
-explicar los application type
+```javascript
+const bodyParser = require('body-parser')
 
+// --------- BODY PARSER  -----------
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true,
+}));
+```
 
+Para probarlo podemos usar CURL
+
+```
+curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
+```
+
+Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
+
+![Postman](img/04_postman.png)
 
 ## 05 Añadir carpeta para servir archivos estáticos**
 

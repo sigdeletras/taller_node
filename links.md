@@ -30,3 +30,7 @@ Securizar apis
 curl windows
 
 https://curl.haxx.se/windows/
+
+body-parser
+
+https://apuntes.de/nodejs-desarrollo-web/body-parser/
