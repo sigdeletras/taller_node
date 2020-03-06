@@ -1,22 +1,17 @@
-// Using Node.js `require()`
+// Incluimos el módulo mediante require y creamos una aplicación de Express.
 
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const apiRoutes = require('./routes/apiRoutes');
-const mongoose = require('mongoose');
 
-// ****** 04. Peticiones **************
-
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+// Definición de ruta que que se llamará cuando se realice una petición GET
+// que ejecutará una función (callback) que nos envía un conjunto de caracteres
+// como respuesta.
 
 app.get('/', function(req, res) {
-    res.json({
-        status: "success",
-        message: "Hola Trassierra"
-    });
+    res.send('Hola Trassierra');
 });
+
+// 04 HTTP
 
 app.get('/pelicula', function(req, res) {
     res.json({
@@ -46,10 +41,10 @@ app.get('/peliculas', function(req, res) {
     res.json(peliculas)
 })
 
-// parametros de request
 app.get('/usuario/:nombre/:edad', function(req, res) {
     let nombre = req.params.nombre
     let edad = req.params.edad
+
     res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
 })
 
@@ -58,6 +53,7 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
     res.send('DNI: ' + req.params.id);
 });
 
+//Otras
 app.get('*', function(req, res) {
     res.send('No es una URL correcta.');
 });
@@ -92,32 +88,9 @@ app.post('/pelicula/nueva2', function(req, res) {
 
 });
 
-// ****** 05. servidor estáticos **************
-
-app.use('/static', express.static(__dirname + '/public'));
-
-// ****** 06. rutas **************
-
-app.use('/api', apiRoutes);
-
-// ****** 07. Conexión de db **************
-
-// await mongoose.connect('mongodb://localhost:27017/demoapi', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// });
-
-mongoose.connect('mongodb://localhost:27017/demoapi', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(
-        () => { console.log("Conexión a DB realizada"); },
-        (err) => { console.log(`Error en la conexión a la DB${err}`); },
-    );
+// Define y crea el servidor, escuchando el puerto 3000 
+// e imprime un comentario en la consola.
 
 app.listen(3000, function() {
     console.log('Servidor escuchando en el puerto 3000!');
 });
-
-module.exports = app; // Para test

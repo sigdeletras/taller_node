@@ -133,6 +133,7 @@ npm install
 - Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
 
 ```javascript
+
 // Incluimos el módulo mediante require y creamos una aplicación de Express.
 
 const express = require('express'); 
@@ -152,6 +153,7 @@ app.get('/', function (req, res) {
 app.listen(3000, function () {
   console.log('Servidor escuchando en el puerto 3000!');
 });
+
 ```
 
 - Arrancamos el servidor
@@ -165,10 +167,47 @@ node server
 
 # 04 Peticiones HTTP
 
+GET
+
+- Método HTTP
+- Ruta
+- callback. Parámetros de petición/respesta/error
+- Formato del objeto respuesta
+
 ```javascript
-
-
+app.get('/pelicula', function(req, res) {
+    res.json({
+        "nombre": "El Señor de los Anillos",
+        "año": "2012"
+    })
+})
 ```
+
+Podemos pasar arrays de objetos
+```javascript
+let peliculas = [{
+        "id": "1",
+        "nombre": "Superman",
+        "año": "2012"
+    },
+    {
+        "id": "2",
+        "nombre": "Batman",
+        "año": "2014"
+    },
+    {
+        "id": "3",
+        "nombre": "El Señor de los Anillos",
+        "año": "2012"
+    }
+]
+
+app.get('/peliculas', function(req, res) {
+    res.json(peliculas)
+})
+```
+
+- Para obtener los pará
 
 Atención a POST
 
