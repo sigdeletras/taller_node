@@ -207,7 +207,11 @@ app.get('/peliculas', function(req, res) {
 })
 ```
 
-- Para obtener los pará
+- Para obtener los parámetros
+
+Nencesitamos añadir los middleware de Express url-encode y json en server.jos
+
+var bodyParser = require('body-parser')
 
 Atención a POST
 
