@@ -210,6 +210,8 @@ GET
 - Callback. Parámetros de petición/respesta/error
 - Formato del objeto respuesta mediante middleware de Express
 
+Objeto JSON
+
 ```javascript
 app.get('/pelicula', function(req, res) {
     res.json({
@@ -220,6 +222,7 @@ app.get('/pelicula', function(req, res) {
 ```
 
 Podemos pasar arrays de objetos
+
 ```javascript
 let peliculas = [{
         "id": "1",
@@ -241,6 +244,26 @@ let peliculas = [{
 app.get('/peliculas', function(req, res) {
     res.json(peliculas)
 })
+```
+
+Pasando parámetros de la petición (req.params)
+
+```javascript
+app.get('/usuario/:nombre/:edad', function(req, res) {
+    let nombre = req.params.nombre
+    let edad = req.params.edad
+
+    res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
+})
+
+```
+
+Rutas con expresiones regulares
+
+```javascript
+app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
+    res.send('DNI: ' + req.params.id);
+});
 ```
 
 - Para obtener los parámetros
