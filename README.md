@@ -2,7 +2,7 @@
 
 Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 2020 del IES Trassierra
 
-# 0. Requisitos
+# 00 Requisitos
 
 - [Nodejs](https://nodejs.org/es/)
 - [npm]()
@@ -11,13 +11,14 @@ Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 20
 - Cliente REST [Postman]() / [Insommnia]()
 - Editor de código. Ej [Visual Studio Code](https://code.visualstudio.com/)
 
-## Instalación
+## Instalación Node
 
-## Windows
+**Windows**
 
-- [https://nodejs.org/es/download/](https://nodejs.org/es/download/)
+- [Nodejs documentación oficial](https://nodejs.org/es/download/)
+- [Install Mongodb on windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-### Linux
+**Linux**
 
 - [Cómo instalar Node.js en Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/como-instalar-node-js-en-ubuntu-18-04-es)
 
@@ -33,12 +34,22 @@ Actualizar la versión npm
 npm install npm@latest -g
 ```
 
-Revisando que todo vaya bien....
+**Revisando que todo vaya bien....**
 
 ```
 nodejs -v
 npm -v
 ```
+
+## Instalación Mongo DB
+
+**Windows**
+
+- [Install Mongodb on windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+
+**Linux**
+
+- [Install MongoDB Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
 # 01 'Hola mundo' con Javascript
 
@@ -327,7 +338,7 @@ app.post('/nuevo', function(req, res) {
 ```
 
 
-## 05 Estructura del proyecto
+# 05 Estructura del proyecto
 
 Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
 
@@ -432,7 +443,15 @@ app.use('/api', apiRoutes);
 
 # 07 Conexión a la BBDD con Mongoose
 
-- Comprobamos que tenemos el servidor de Mongo DB iniciado.
+- Revisar si tenemos mongo instalado
+
+REVISARRRRRRRRRRRRRRRRR WIN
+
+```
+mongo
+```
+
+- Linux. Comprobamos que tenemos el servidor de Mongo DB iniciado.
 
 ```
 sudo service mongod status
@@ -449,6 +468,8 @@ sudo service mongod stop
 
 - [Compass](https://www.mongodb.com/products/compass)
 - Robo 3T [https://robomongo.org/](https://robomongo.org/)
+
+![Robo 3T](07_robo3t.png)
 
 ## Conexión mediante Mongoose
 
@@ -469,7 +490,7 @@ npm i mongoose -S
 ```Javascript
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/demoapi', {
+mongoose.connect('mongodb://localhost:27017/apipeliculas', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -479,12 +500,30 @@ mongoose.connect('mongodb://localhost:27017/demoapi', {
     );
 ```
 
-## 08 Creando modelos con Mongoose
+# 08 Creando modelos con Mongoose
 
-- Creamos una nueva capa *models*
+- Dentro de la caperpeta */models* creamo nuestro modelo Pelicula.js
 
+```javascript
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-## 08 Creando controladores
+const peliculaSchema = new Schema({
+    titulo: {type: String},
+    anio: {type: Number},
+    encartelera: {type: Boolean},
+});
+
+module.exports = mongoose.model("Pelicula", pelicualSchema);
+```
+
+![ShemaType](img/08_shema_types_mongoose.png)
+
+Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
+
+Ejecutamos el archivo addPeliculas.js para añadir unas películas de ejemplo.
+
+# 09 Creando controladores
 
 - Creamos una nueva capa *controllers*
 
