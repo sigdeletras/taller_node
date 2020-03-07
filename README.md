@@ -629,11 +629,21 @@ module.exports = {
 };
 
 ```
-
 - Para probar debemos copiar el id de una de las películas y añadirlas a la URL.
+[http://localhost:3000/api/peliculas/5e6361f779f94546e47ffdd5](http://localhost:3000/api/peliculas/5e6361f779f94546e47ffdd5)
 
 ![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
+- Pelicula por nombre
+
+[http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs](http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs)
+
+- Peliculas en cartelera y devolver total
+[http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
+
+- Opciones de limit, sort
+
+- Busqueda texto
 # 99 test
 
 - Navegador
