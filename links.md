@@ -22,6 +22,10 @@ Test mocha /chai
 MOngo Windows
 
 - https://tutobasico.com/instalar-mongodb-win10/
+- https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+- Video https://www.youtube.com/watch?v=2KMQdqDk9e8
+- https://www.digitalocean.com/community/tutorials/como-instalar-mongodb-en-ubuntu-18-04-es
+- https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 Securizar apis
 

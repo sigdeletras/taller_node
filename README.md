@@ -298,23 +298,40 @@ curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
 
 Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
 
+- Instalamos *Postman* y probamos la petición POST.
+    - Selecionamos POST como tipo de petición
+    - Introducimos la url
+    - Simularemos la entrada desde un formulario  eligiendo en la sección *body* e indicamos que el tipo de contenido es *x-www-form-urlencoded*
+
 ![Postman](img/04_postman.png)
 
-## 05 Añadir carpeta para servir archivos estáticos**
+- Modificamos el código para forzar que los datos existan y añadir un mensaje de error.
 
-Para el servicio de archivos estáticos como, por ejemplo, imágenes, archivos CSS y archivos JavaScript, usamos la función de middleware incorporado express.static de Express.
+```javascript
+app.post('/nuevo', function(req, res) {
+    const { nombre, edad } = req.body;
+    if (nombre && edad) {
+        res.json({
+            status: "success",
+            nombre,
+            edad
+        });
+    } else {
+        res.json({
+            status: "fail",
+            message: "Falta algún parámetro"
+        });
+    }
 
-- Crear una carpeta llamada /public
-
-Definimos el acceso virtual (/static) que accede a la carpeta /public mediane la vía de acceso absoluta del directorio al que desea dar servicio.
-
-```Javascript
-app.use('/static', express.static(__dirname + '/public'));
+});
 ```
 
-# 06 Manejadores de rutas. Importación de módulos. 
+
+## 05 Estructura del proyecto
 
 Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
+
+![caos](https://media.giphy.com/media/ZD8ZjehSsLDZQRKJjJ/giphy.gif)
 
 **Estructura basada en componentes**
 - /componente
@@ -327,7 +344,6 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
     - bar_modelo.js
     - bar_controlador.js
     - bar_test.js
-
 
 **Estructura en arquitectura lógica**
 - /controladores
@@ -344,11 +360,18 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
   - cliente_test.js
   - bar_test.js
 
+  Creamos las carpetas:
+
+  - /models
+  - /controllers
+  - /routes
+
+# 06 Manejadores de rutas. 
 
 Al independizar/agrupar archivos en carpetas/fciheros debemos configurarlos para que pueden ser leídos desde otros módulos
 
 - Llamamos a un módulo mediante la función require()
-- Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con
+- Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con:
 
 ```javascript
 module.export.nombre_variable
@@ -362,8 +385,7 @@ module.export = {
 
 Vamos a aplicar este concepto para separa nuestro archivo de rutas
 
-- Creamos la carpeta *routes*
-- Creamos archivo *apiRoutes.js*
+- Creamos archivo *peliculasRoutes.js*
 - Obtenemos los módulos necesarios
 
 ```Javascript
@@ -371,19 +393,25 @@ const express = require('express');
 const router = express.Router();
 ```
 
-- Pasamos las peticiones del archivo server.js al nuevo fichero. Debemos modificar el código para que usar la constante router
+- Vamos a crear las rutas para nuestro CRUD
 
 ```Javascript
-router.get('/users', function(req, res) {
-    res.json(usuarios)
+router.get('/peliculas', function(req, res) {
+    res.send("GET  listado de peliculas")
+})
+router.get('/peliculas/:id', function(req, res) {
+    res.send("GET pelicula por ID")
+})
+router.post('/peliculas', function(req, res) {
+    res.send("POST Nueva película")
+})
+router.put('/peliculas/:id', function(req, res) {
+    res.send("PUT Actualiza película por ID")
+})
+router.delete('/peliculas/:id', function(req, res) {
+    res.send("DELETE Borra película por ID")
 })
 
-router.get('/user/:nombre/:edad', function(req, res) {
-    let nombre = req.params.nombre
-    let edad = req.params.edad
-
-    res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
-})
 ```
 - Debemos añadir el método que exporta las variables y funciones
 
@@ -394,24 +422,17 @@ module.exports = router;
 - Usamos require para usar el nuevo archivo en server.js y lo usamos añadiendo el prefijo /api a todas las peticiones creadas en el archivo
 
 ```Javascript
-const apiRoutes = require('./routes/apiRoutes');
+const apiRoutes = require('./routes/peliculasRoutes');
+
 app.use('/api', apiRoutes);
 
 ```
 
-# Base de datos Mongo
+- Probamos en Postman
 
-https://tutobasico.com/instalar-mongodb-win10/
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
-Video https://www.youtube.com/watch?v=2KMQdqDk9e8
+# 07 Conexión a la BBDD con Mongoose
 
-
-
-https://www.digitalocean.com/community/tutorials/como-instalar-mongodb-en-ubuntu-18-04-es
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-
-
-Comprobamos que tenemos el servidor de mongodb iniciado
+- Comprobamos que tenemos el servidor de Mongo DB iniciado.
 
 ```
 sudo service mongod status
@@ -423,23 +444,27 @@ Para iniciar/parar
 sudo service mongod start
 sudo service mongod stop
 ```
+
 **GUI**
 
-- Compass
+- [Compass](https://www.mongodb.com/products/compass)
 - Robo 3T [https://robomongo.org/](https://robomongo.org/)
-
 
 ## Conexión mediante Mongoose
 
-Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+[Mongoose](https://mongoosejs.com/) es una librería que permite crear modelos de objetos. Está diseñado para trabajar en entornos asíncronos. Mongoose soporte tanto promesas como callbacks.
 
-- Instalamos mongoose
+![Mongoose](img/07_mongoose.png)
+
+Si queremos desarrollar nuestra capa de datos con **bases de datos SQL (Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server)** podemos usar [Sequelize](https://sequelize.org/)
+
+- Instalamos Mongoose como dependencia del proyecto.
 
 ```
 npm i mongoose -S
 ```
 
-Añadimos el módulo y la conexión a *server.js*
+- Añadimos el módulo y la conexión a *server.js*
 
 ```Javascript
 const mongoose = require('mongoose');
