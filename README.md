@@ -1,4 +1,4 @@
-# Montando una APIRest con Nodejs, Express y MongoDB
+# _Montando una APIRest con Nodejs, Express y MongoDB
 
 Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 2020 del IES Trassierra
 
@@ -341,7 +341,7 @@ Pero es más cómodo usar herramientas para testear API como [Postman](https://w
 // server.js
 
 app.post('/nuevo', function(req, res) {
-    const { nombre, edad } = req.body;
+    let { nombre, edad } = req.body;
     if (nombre && edad) {
         res.json({
             status: "success",
@@ -525,7 +525,7 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
     );
 ```
 
-# 08 Creando modelos con Mongoose
+# 08 Modelos
 
 - Dentro de la caperpeta */models* creamo nuestro modelo Pelicula.js
 
@@ -551,21 +551,22 @@ Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 
 - Ejecutamos el archivo addPeliculas.js para añadir unas películas de ejemplo.
 
-# 09 Creando controladores
+# 09 Controladores
 
 Estos archivos van a almacenar la lógica de nuestro proyecto.
 
-- Creamos el archivo peliculasController.js en la carpeta */controllers*
+## 1 GET con find()
+- Nuevo archivo *peliculasController.js* en la carpeta */controllers*
 - Creamos la primera función que nos va a devolver el listo de películas. para ellos usamos la función *find()*
 
 ```javascript
 
-// controllers/peliculasController.js
+// Archivo: controllers/peliculasController.js
 
 // Añadimos el modelo
 const Pelicula = require("../models/Pelicula");
 
-// GET Listado Peliculas
+// GET Listado Películas
 const peliculaList = (req, res) => {
     Pelicula.find((err, peliculas) => {
         if (err) {
@@ -580,17 +581,17 @@ const peliculaList = (req, res) => {
 };
 
 // Exportamos la función para ser usada
-
 module.exports = {
     peliculaList,
 };
 
 ```
+
 - Cambiamos la función genérica usada en el archivo de rutas para que use la función definida en el controlador. Antes debemos importar el archivo y luego añadir la función correspodinete.
 
 ```javascript
 
-//peliculasRouter.js
+//Archivo: peliculasRouter.js
 
 const peliculaController = require('../controllers/peliculasController')
 
@@ -603,6 +604,8 @@ router.get('/peliculas', peliculaController.peliculaList)
 
 [http://localhost:3000/api/peliculas](http://localhost:3000/api/peliculas)
 
+## 2 GET con *findById()*
+
 - Usamos la función *findById()*  y la añadimos al array para exportarla
 
 ```javascript
@@ -610,7 +613,7 @@ router.get('/peliculas', peliculaController.peliculaList)
 
 // GET Detalle de PELICULA por ID
 const peliculaDetail = (req, res) => {
-    const { id } = req.params;
+    let { id } = req.params;
     Pelicula.findById(id, (err, pelicula) => {
         if (err) {
             res.json({
@@ -635,14 +638,16 @@ module.exports = {
 
 ![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
+## 2 GET *find()* sobre un campos
+
 - Peliculas en cartelera y devolver total
 
 ```javascript
 // controllers/peliculasController.js
 
-// Detalle de PELICULA por Título y total de resultados
+// Peliculas en cartelera con  total de resultados
 const peliculaByCartelera = (req, res) => {
-    const { encartelera } = req.params;
+    let { encartelera } = req.params;
 
     Pelicula.find({ encartelera }, (err, pelicula) => {
         if (err) {
@@ -662,17 +667,41 @@ const peliculaByCartelera = (req, res) => {
 
 [http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
 
+## 2 GET *find()* y sort
+
 - Opciones de sort, limit, campos a devolver...
 
-- Pelicula por título
+```javascript
+// controllers/peliculasController.js
 
+// GET Películas en cartelera con  total de resultados
+const peliculaByCartelera = (req, res) => {
+    let { encartelera } = req.params;
+
+    Pelicula.find({ encartelera }, null, { sort: { anio: -1 } }, (err, pelicula) => {
+        if (err) {
+            res.json({
+                status: 0,
+                message: "No existe registros ",
+            });
+        } else res.json({
+            'total': pelicula.length,
+            pelicula
+        });
+    });
+};
+```
+
+## 2 GET find() Película por título con Expresión regular
+
+- Usamos una expresión regular para buscar una cadena de texto en el título
 ```javascript
 
 // controllers/peliculasController.js
 
 // Detalle de PELICULA por Título
 const peliculaByTitle = (req, res) => {
-    const { titulo } = req.params;
+    let { titulo } = req.params;
 
     Pelicula.find({ titulo }, (err, pelicula) => {
         if (err) {
@@ -688,7 +717,6 @@ const peliculaByTitle = (req, res) => {
 [http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs](http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs)
 
 
-
 - Búsqueda por texto en título usando expresión regular.
 
 ```javascript
@@ -696,7 +724,7 @@ const peliculaByTitle = (req, res) => {
 
 // Detalle de PELICULA por Título
 const peliculaByTitle = (req, res) => {
-    const { titulo } = req.params;
+    let { titulo } = req.params;
 
     Pelicula.find({ titulo: { $regex: new RegExp(titulo, "i") } }, (err, pelicula) => {
         if (err) {
@@ -707,6 +735,72 @@ const peliculaByTitle = (req, res) => {
         } else res.json(pelicula);
     });
 };
+
+```
+
+
+## 2 POST
+
+- Creamos la función.
+- La hacemos exportable dentro del módulo
+- Modificamos la función en peliculasRoute.js
+- Reiniciamos
+- Testeamos en Postman
+
+```javascript
+
+// controllers/peliculasController.js
+
+// POST Crea Pelicula
+const peliculaCreate = (req, res) => {
+    let { titulo, anio, encartelera } = req.body;
+
+    let pelicula = new Pelicula({
+        titulo
+        anio
+        encartelera
+    });
+
+    // usamos Promesas
+    pelicula.save()
+        .then((pelicula) => {
+            res.status(200).json({
+                state: 1,
+                message: "PELÍCULA creada",
+                pelicula,
+            });
+        })
+        .catch((err) => {
+            res.status(400).send({
+                state: 0,
+                message: err.message,
+            });
+        });
+};
+
+module.exports = {
+    peliculaList,
+    peliculaDetail,
+    peliculaByTitle,
+    peliculaByCartelera,
+     peliculaCreate,
+};
+```
+
+## 3 PUT
+
+## 4 DELETE
+
+
+# 99 2Do
+- Control de errores
+- Securizar la API
+- Más sobre Mongoose ()
+    - Fechas
+    - Validaciones
+    - Populates
+    - get/set
+    - virtual
 
 
 # 99 test
