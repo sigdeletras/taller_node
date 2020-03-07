@@ -638,7 +638,7 @@ module.exports = {
 
 ![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
-## 2 GET *find()* sobre un campos
+## 3 GET *find()* sobre un campos
 
 - Peliculas en cartelera y devolver total
 
@@ -667,7 +667,7 @@ const peliculaByCartelera = (req, res) => {
 
 [http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
 
-## 2 GET *find()* y sort
+## 4 GET *find()* y sort
 
 - Opciones de sort, limit, campos a devolver...
 
@@ -692,7 +692,7 @@ const peliculaByCartelera = (req, res) => {
 };
 ```
 
-## 2 GET find() Película por título con Expresión regular
+## 5 GET find() Película por título con Expresión regular
 
 - Usamos una expresión regular para buscar una cadena de texto en el título
 ```javascript
@@ -739,7 +739,7 @@ const peliculaByTitle = (req, res) => {
 ```
 
 
-## 2 POST
+## 6 POST save()
 
 - Creamos la función.
 - La hacemos exportable dentro del módulo
@@ -751,29 +751,30 @@ const peliculaByTitle = (req, res) => {
 
 // controllers/peliculasController.js
 
-// POST Crea Pelicula
+// POST Crea Película
 const peliculaCreate = (req, res) => {
     let { titulo, anio, encartelera } = req.body;
 
     let pelicula = new Pelicula({
-        titulo
-        anio
+        titulo,
+        anio,
         encartelera
     });
 
-    // usamos Promesas
-    pelicula.save()
-        .then((pelicula) => {
+    // Usamos Promesas
+    pelicula
+        .save()
+        .then(pelicula => {
             res.status(200).json({
                 state: 1,
-                message: "PELÍCULA creada",
-                pelicula,
+                message: "Película creada",
+                pelicula
             });
         })
-        .catch((err) => {
-            res.status(400).send({
+        .catch(err => {
+            res.status(500).send({
                 state: 0,
-                message: err.message,
+                message: err.message
             });
         });
 };
@@ -783,18 +784,110 @@ module.exports = {
     peliculaDetail,
     peliculaByTitle,
     peliculaByCartelera,
-     peliculaCreate,
+    peliculaCreate,
 };
 ```
 
-## 3 PUT
+## 7 PUT findByIdAndUpdate()
 
-## 4 DELETE
+- Creamos la función.
+- La hacemos exportable dentro del módulo
+- Modificamos la función en peliculasRoute.js
+- Reiniciamos
+- Testeamos en Postman
 
+```javascript
+
+// controllers/peliculasController.js
+
+// PUT Actualiza Película
+
+const peliculaUpdate = (req, res, next) => {
+
+    Pelicula.findById(req.params.id, (err, pelicula) => {
+        if (!pelicula) {
+            return res.status(400).json({
+                state: 0,
+                message: "No se ha encontrado película con id indicado ",
+                message: err.message,
+            });
+        }
+
+        let { id } = req.params;
+        let { body } = req;
+
+        Pelicula.findByIdAndUpdate(id, body, { new: true }, (err, peliculaDB) => {
+
+            if (err) {
+                return res.status(500).json({
+                    state: 0,
+                    message: err.message,
+                });
+            }
+            res.status(200).json({
+                state: 1,
+                message: "Película actualizada",
+                peliculaDB,
+            });
+        });
+    });
+};
+
+module.exports = {
+    peliculaList,
+    peliculaDetail,
+    peliculaByTitle,
+    peliculaByCartelera,
+    peliculaCreate,
+};
+```
+
+
+## 8 DELETE findByIdAndRemove()
+
+- Creamos la función.
+- La hacemos exportable dentro del módulo
+- Modificamos la función en peliculasRoute.js
+- Reiniciamos
+- Testeamos en Postman
+
+```javascript
+
+// controllers/peliculasController.js
+
+// DELETE Borrar película
+const peliculaDelete = (req, res) => {
+
+    Pelicula.findByIdAndRemove({ _id: req.params.id }, (err, pelicula) => {
+        if (err) {
+            return res.status(500).json({
+                state: 0,
+                message: err,
+            });
+        }
+
+        if (!pelicula) {
+            return res.status(400).json({
+                state: 0,
+                message: "Película no encontrada",
+            });
+        }
+
+        res.status(200).json({
+            state: 1,
+            pelicula: pelicula.titulo,
+            message: "Película borrada",
+
+        });
+    });
+};
+```
 
 # 99 2Do
 - Control de errores
 - Securizar la API
+- Tests
+- Variables de configuración (despliegues)
 - Más sobre Mongoose ()
     - Fechas
     - Validaciones
