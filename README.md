@@ -53,10 +53,12 @@ npm -v
 
 # 01 'Hola mundo' con Javascript
 
-
 Creamos un archivo *holamundo.js*
 
 ```javascript
+
+// holamundo.js
+
 console.log("Hola IES Trassierra')
 ```
 
@@ -122,7 +124,7 @@ npm -i <nombre-paquete> -S
 Otros comandos
 
 ```
-npm uninstall <nombre-paquete> //
+npm uninstall <nombre-paquete> 
 npm update <nombre-paquete>
 npm install nodemon --save-dev
 ```
@@ -147,6 +149,8 @@ npm install
 - Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
 
 ```javascript
+
+// server.js
 
 // Incluimos el módulo mediante require y creamos una aplicación de Express.
 
@@ -188,13 +192,16 @@ node server
 [Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
 
 - Instalamos nodemon como dependencia de desarrollo.
+
 ```
 npm install --save-dev nodemon
 ```
 
 - Creamos un script dentro de nuestro package.json para lanzarlo con *npm*
 
-```
+```json
+// package.json
+
   "scripts": {
     "dev": "nodemon server.js"
   },
@@ -222,6 +229,8 @@ npm run dev
 Objeto JSON
 
 ```javascript
+// server.js
+
 app.get('/pelicula', function(req, res) {
     res.json({
         "nombre": "El Señor de los Anillos",
@@ -233,6 +242,9 @@ app.get('/pelicula', function(req, res) {
 Podemos pasar arrays de objetos
 
 ```javascript
+
+// server.js
+
 let peliculas = [{
         "id": "1",
         "nombre": "Superman",
@@ -258,6 +270,8 @@ app.get('/peliculas', function(req, res) {
 Pasando parámetros de la petición (req.params)
 
 ```javascript
+// server.js
+
 app.get('/usuario/:nombre/:edad', function(req, res) {
     let nombre = req.params.nombre
     let edad = req.params.edad
@@ -270,6 +284,8 @@ app.get('/usuario/:nombre/:edad', function(req, res) {
 Rutas con expresiones regulares
 
 ```javascript
+// server.js
+
 app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
     res.send('DNI: ' + req.params.id);
 });
@@ -292,6 +308,8 @@ npm install body-parser --save
 Y lo añadimos con require a server.js
 
 ```javascript
+// server.js
+
 const bodyParser = require('body-parser')
 
 // --------- BODY PARSER  -----------
@@ -319,6 +337,9 @@ Pero es más cómodo usar herramientas para testear API como [Postman](https://w
 - Modificamos el código para forzar que los datos existan y añadir un mensaje de error.
 
 ```javascript
+
+// server.js
+
 app.post('/nuevo', function(req, res) {
     const { nombre, edad } = req.body;
     if (nombre && edad) {
@@ -336,7 +357,6 @@ app.post('/nuevo', function(req, res) {
 
 });
 ```
-
 
 # 05 Estructura del proyecto
 
@@ -385,6 +405,7 @@ Al independizar/agrupar archivos en carpetas/fciheros debemos configurarlos para
 - Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con:
 
 ```javascript
+
 module.export.nombre_variable
 module.export.nombre_funcion
 
@@ -396,17 +417,18 @@ module.export = {
 
 Vamos a aplicar este concepto para separa nuestro archivo de rutas
 
-- Creamos archivo *peliculasRoutes.js*
+- Creamos archivo *peliculasRoute.js*
 - Obtenemos los módulos necesarios
+- Vamos a crear las rutas para nuestro CRUD. 
+- Debemos añadir el método que exporta las variables y funciones
 
 ```Javascript
+
+// routes/peliculasRoute.js
+
 const express = require('express');
 const router = express.Router();
-```
 
-- Vamos a crear las rutas para nuestro CRUD
-
-```Javascript
 router.get('/peliculas', function(req, res) {
     res.send("GET  listado de peliculas")
 })
@@ -423,16 +445,16 @@ router.delete('/peliculas/:id', function(req, res) {
     res.send("DELETE Borra película por ID")
 })
 
-```
-- Debemos añadir el método que exporta las variables y funciones
-
-```Javascript
 module.exports = router;
 ```
+
 
 - Usamos require para usar el nuevo archivo en server.js y lo usamos añadiendo el prefijo /api a todas las peticiones creadas en el archivo
 
 ```Javascript
+
+// server.js
+
 const apiRoutes = require('./routes/peliculasRoutes');
 
 app.use('/api', apiRoutes);
@@ -488,6 +510,9 @@ npm i mongoose -S
 - Añadimos el módulo y la conexión a *server.js*
 
 ```Javascript
+
+// server.js
+
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/apipeliculas', {
@@ -505,6 +530,9 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
 - Dentro de la caperpeta */models* creamo nuestro modelo Pelicula.js
 
 ```javascript
+
+// models/Pelicula.js
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -521,12 +549,90 @@ module.exports = mongoose.model("Pelicula", pelicualSchema);
 
 Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 
-Ejecutamos el archivo addPeliculas.js para añadir unas películas de ejemplo.
+- Ejecutamos el archivo addPeliculas.js para añadir unas películas de ejemplo.
 
 # 09 Creando controladores
 
-- Creamos una nueva capa *controllers*
+Estos archivos van a almacenar la lógica de nuestro proyecto.
 
+- Creamos el archivo peliculasController.js en la carpeta */controllers*
+- Creamos la primera función que nos va a devolver el listo de películas. para ellos usamos la función *find()*
+
+```javascript
+
+// controllers/peliculasController.js
+
+// Añadimos el modelo
+const Pelicula = require("../models/Pelicula");
+
+// GET Listado Peliculas
+const peliculaList = (req, res) => {
+    Pelicula.find((err, peliculas) => {
+        if (err) {
+            res.status(400).json({
+                status: 0,
+                message: "Error",
+            });
+        } else {
+            res.status(200).json(peliculas);
+        }
+    });
+};
+
+// Exportamos la función para ser usada
+
+module.exports = {
+    peliculaList,
+};
+
+```
+- Cambiamos la función genérica usada en el archivo de rutas para que use la función definida en el controlador. Antes debemos importar el archivo y luego añadir la función correspodinete.
+
+```javascript
+
+//peliculasRouter.js
+
+const peliculaController = require('../controllers/peliculasController')
+
+
+router.get('/peliculas', peliculaController.peliculaList)
+
+```
+
+- Testeamos
+
+[http://localhost:3000/api/peliculas](http://localhost:3000/api/peliculas)
+
+- Usamos la función *findById()*  y la añadimos al array para exportarla
+
+```javascript
+// controllers/peliculasController.js
+
+// GET Detalle de PELICULA por ID
+const peliculaDetail = (req, res) => {
+    const { id } = req.params;
+    Pelicula.findById(id, (err, pelicula) => {
+        if (err) {
+            res.json({
+                status: 0,
+                message: "No existe un PELICULA con ese ID ",
+            });
+        } else res.json(pelicula);
+    });
+};
+
+// Exportamos la función para ser usada
+
+module.exports = {
+    peliculaList,
+    peliculaDetail
+};
+
+```
+
+- Para probar debemos copiar el id de una de las películas y añadirlas a la URL.
+
+![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
 # 99 test
 
