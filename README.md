@@ -630,20 +630,85 @@ module.exports = {
 
 ```
 - Para probar debemos copiar el id de una de las películas y añadirlas a la URL.
+
 [http://localhost:3000/api/peliculas/5e6361f779f94546e47ffdd5](http://localhost:3000/api/peliculas/5e6361f779f94546e47ffdd5)
 
 ![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
-- Pelicula por nombre
+- Peliculas en cartelera y devolver total
+
+```javascript
+// controllers/peliculasController.js
+
+// Detalle de PELICULA por Título y total de resultados
+const peliculaByCartelera = (req, res) => {
+    const { encartelera } = req.params;
+
+    Pelicula.find({ encartelera }, (err, pelicula) => {
+        if (err) {
+            res.json({
+                status: 0,
+                message: "No existe registros ",
+            });
+        } else res.json({
+                'total': pelicula.length,
+                pelicula
+            }
+
+        );
+    });
+};
+```
+
+[http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
+
+- Opciones de sort, limit, campos a devolver...
+
+- Pelicula por título
+
+```javascript
+
+// controllers/peliculasController.js
+
+// Detalle de PELICULA por Título
+const peliculaByTitle = (req, res) => {
+    const { titulo } = req.params;
+
+    Pelicula.find({ titulo }, (err, pelicula) => {
+        if (err) {
+            res.json({
+                status: 0,
+                message: "No existe un PELICULA con ese título ",
+            });
+        } else res.json(pelicula);
+    });
+};
+```
 
 [http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs](http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs)
 
-- Peliculas en cartelera y devolver total
-[http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
 
-- Opciones de limit, sort
 
-- Busqueda texto
+- Búsqueda por texto en título usando expresión regular.
+
+```javascript
+// controllers/peliculasController.js
+
+// Detalle de PELICULA por Título
+const peliculaByTitle = (req, res) => {
+    const { titulo } = req.params;
+
+    Pelicula.find({ titulo: { $regex: new RegExp(titulo, "i") } }, (err, pelicula) => {
+        if (err) {
+            res.json({
+                status: 0,
+                message: "No existe un PELICULA con ese título ",
+            });
+        } else res.json(pelicula);
+    });
+};
+
+
 # 99 test
 
 - Navegador
