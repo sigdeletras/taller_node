@@ -1,6 +1,6 @@
 # _Montando una APIRest con Nodejs, Express y MongoDB
 
-Taller sobre Nodejs, APIRest y Mongo impartido en las II Jornadas de Informática 2020 del IES Trassierra
+Taller sobre Nodejs, API Rest y Mongo impartido en las II Jornadas de Informática 2020 del IES Trassierra.
 
 # 00 Requisitos
 
@@ -15,8 +15,8 @@ Taller sobre Nodejs, APIRest y Mongo impartido en las II Jornadas de Informátic
 
 **Windows**
 
-- [Nodejs documentación oficial](https://nodejs.org/es/download/)
-- [Install Mongodb on windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+- [Documentación oficial Nodejs](https://nodejs.org/es/download/)
+- [Documentación oficial. Install Mongodb on Windows](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
 **Linux**
 
@@ -70,9 +70,9 @@ node holamundo.js
 
 # 02 Iniciar proyecto e instalando módulos con npm
 
-Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto, instalar, desinstalar dependencias, buscar paquetes.
+Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto, instalar, desinstalar dependencias, buscar paquetes...
 
-- Creamos la carpeta 'demoapi'.
+- Creamos la carpeta */demoapi*.
 
 ```
 mkdir demoapi
@@ -100,12 +100,11 @@ Más [+info](https://medium.com/noders/t%C3%BA-yo-y-package-json-9553929fb2e3)
 
 ### Instalando módulos.
 
-Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que necesitemos.  Accediendo a la página de npm podremos localizar el módulo que necesitemos con información sobre su uso.
+Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que necesitemos.  Accediendo a la página de npm podremos localizar el módulo que y consultar información asociada su uso.
 
 ![npm](img/02_pagina_npm.png)
 
-La instalación puede hacerse de forma global(equipo) o solo para proyecto (dependencias): 
-
+La instalación puede hacerse de forma global (equipo) o solo para proyecto (dependencias): 
 
 ```
 npm install -g <nombre-paquete>
@@ -113,7 +112,7 @@ npm install <nombre-paquete> --save
 npm -i <nombre-paquete> -S
 ```
 
-Otros comandos
+Otros comandos de npm
 
 ```
 npm uninstall <nombre-paquete> 
@@ -168,11 +167,11 @@ app.listen(3000, function () {
 node server
 ```
 
-- Desde un navaegador accedemos a la URL [http://localhost:3000/](http://localhost:3000/)
+- Desde un navegador accedemos a la URL [http://localhost:3000/](http://localhost:3000/)
 
-- Modificamos el mensaje por el de 'Hola DAW'
+- Modificamos el mensaje por 'Hola DAW'
 
-- Para aplicar los cambios debemos para el servicio con *Ctrl+c*
+- Para aplicar los cambios debemos parar el servicio con *Ctrl+c* y volver a inicarlo.
 
 ## Nodemon
 
@@ -196,7 +195,7 @@ npm install --save-dev nodemon
   },
 ```
 
-- Lanzamos nuestro servidor con Nodemon usando *npm run <nombrescript>*
+- Lanzamos nuestro servidor con Nodemon usando *npm run nombrescript*
 
 ```
 npm run dev
@@ -260,7 +259,7 @@ app.get('/peliculas', function(req, res) {
 })
 ```
 
-Pasando parámetros de la petición (req.params)
+Cons *req.params* podemos usar los parámetros de la petición.
 
 ```javascript
 // server.js
@@ -274,11 +273,12 @@ app.get('/usuario/:nombre/:edad', function(req, res) {
 
 ```
 
-Rutas con expresiones regulares
+Dentro de la ruta puede usarse expresiones regulares para validar la url.
 
 ```javascript
 // server.js
 
+// La URL debe de contener una cadena de 8 números y una letra en mayúscula
 app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
     res.send('DNI: ' + req.params.id);
 });
@@ -286,7 +286,9 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
 
 ## POST
 
-Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesitamos tener instalado un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser). body-parser extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
+Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesitamos tener instalado un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser).
+
+**body-parser** extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
 
 ```
 npm install body-parser --save
@@ -303,10 +305,10 @@ Lo añadimos a *server.js* con require()
 
 const bodyParser = require('body-parser')
 
-// --------- BODY PARSER  -----------
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true,
+    extended: true, // permite el uso de rich objects y arreglos codificados
 }));
 ```
 
@@ -373,7 +375,8 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
   - cliente_test.js
   - bar_test.js
 
-  **Estructura basada en componentes**
+
+**Estructura basada en componentes**
 - /componente
   - /cliente
     - cliente_modelo.js
@@ -385,7 +388,8 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
     - bar_controlador.js
     - bar_test.js
 
-  Creamos las carpetas:
+
+Vamos a usar una estructura basada en la arquitectura lógica. Creamos las siguientes carpetas dentro nuestro proyecto */demoapi*.
 
   - /models
   - /controllers
@@ -400,9 +404,11 @@ Al independizar/agrupar archivos en carpetas/fiheros debemos configurarlos para 
 
 ```javascript
 
+// De forma indiviudla por cada variable/función
 module.export.nombre_variable
 module.export.nombre_funcion
 
+// Dentro de un array
 module.export = {
   nombre_variable,
   nombre_funcion
