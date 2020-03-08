@@ -1,6 +1,6 @@
 # _Montando una APIRest con Nodejs, Express y MongoDB
 
-Taller sobre Nodejs, APIRest y Mongo impartido en la Jornadas de Informática 2020 del IES Trassierra
+Taller sobre Nodejs, APIRest y Mongo impartido en las II Jornadas de Informática 2020 del IES Trassierra
 
 # 00 Requisitos
 
@@ -41,7 +41,7 @@ nodejs -v
 npm -v
 ```
 
-## Instalación Mongo DB
+## Instalación MongoDB
 
 **Windows**
 
@@ -53,7 +53,7 @@ npm -v
 
 # 01 'Hola mundo' con Javascript
 
-Creamos un archivo *holamundo.js*
+- Creamos un archivo *holamundo.js*
 
 ```javascript
 
@@ -62,17 +62,15 @@ Creamos un archivo *holamundo.js*
 console.log("Hola IES Trassierra')
 ```
 
-Desde terminal ejecutamos el archivo
+- Desde terminal ejecutamos el archivo
 
 ```
 node holamundo.js
 ```
 
-Podemos abrir node desde consola. Es igual que si abrimos las Herramientas de desarrollador de nuestro navegador.
+# 02 Iniciar proyecto e instalando módulos con npm
 
-# 02 Iniciar proyecto e instalando módulos con NPM
-
-Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto o instalar dependencias.
+Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto, instalar, desinstalar dependencias, buscar paquetes.
 
 - Creamos la carpeta 'demoapi'.
 
@@ -81,7 +79,7 @@ mkdir demoapi
 cd demoapi
 ```
 
-- Inicializamos el proyecto creando el archivo *package.json*. Iremos completando la información del asistente. 
+- Con *npm init* se ejecuará un asistente para completar la información del proyecto. Al terminar se habrá creado el archivo *package.json*  donde queda refelejado la configuración del proyecto.
 
 ```
 npm init 
@@ -106,17 +104,11 @@ Usamos los comandos [npm](https://www.npmjs.com/) para instalar lo módulos que 
 
 ![npm](img/02_pagina_npm.png)
 
-La instalación puede hacerse de forma global o para el proyecto: 
+La instalación puede hacerse de forma global(equipo) o solo para proyecto (dependencias): 
 
-Instalación global (con permisos root)
 
 ```
 npm install -g <nombre-paquete>
-```
-
-Instalación dentro del proyecto. Se añade en el apartado de dependencias de *package.json*
-
-```
 npm install <nombre-paquete> --save
 npm -i <nombre-paquete> -S
 ```
@@ -130,29 +122,25 @@ npm install nodemon --save-dev
 ```
 
 - Instalamos el paquete Express
+
 ```
 npm install express -S
 ```
 
-Comprobamos que se ha creado la carpeta **/node_modules** y se ha añadido Express como dependencia de nuestro proyecto.
+- Comprobamos que se ha creado la carpeta **/node_modules** y se ha añadido Express como dependencia de nuestro proyecto.
 
 ![dependencias](img/03_dependencias.png)
 
-**Si ya tuviéramos el archivo de instalación podríamos instalarlo con npm install**
 
-```
-npm install
-```
+# 03 Servidor con Express
 
-# 03 Servidor con ExpressJS
-
-- Creamos el archivo de entrada *server.js* del proyecto, en este caso el que monta un servidor. Añadimos el siguiente código.
+- Creamos el archivo *server.js* y añadimos el siguiente código.
 
 ```javascript
 
 // server.js
 
-// Incluimos el módulo mediante require y creamos una aplicación de Express.
+// Incluimos el módulo con require y creamos una aplicación de Express.
 
 const express = require('express'); 
 const app = express();
@@ -180,9 +168,10 @@ app.listen(3000, function () {
 node server
 ```
 
-- Accedemos a [http://localhost:3000/](http://localhost:3000/)
+- Desde un navaegador accedemos a la URL [http://localhost:3000/](http://localhost:3000/)
 
 - Modificamos el mensaje por el de 'Hola DAW'
+
 - Para aplicar los cambios debemos para el servicio con *Ctrl+c*
 
 ## Nodemon
@@ -191,13 +180,13 @@ node server
 
 [Nodemon](https://nodemon.io/) es una librería que reinicia el servidor automáticamente tras salvar cambios. 
 
-- Instalamos nodemon como dependencia de desarrollo.
+- Instalamos Nodemon como dependencia de desarrollo.
 
 ```
 npm install --save-dev nodemon
 ```
 
-- Creamos un script dentro de nuestro package.json para lanzarlo con *npm*
+- Creamos un script dentro de nuestro *package.json* para lanzarlo con *npm*
 
 ```json
 // package.json
@@ -221,12 +210,16 @@ npm run dev
 
 ## GET
 
-- Método HTTP
-- Ruta
-- Callback. Parámetros de petición/respesta/error
-- Formato del objeto respuesta mediante middleware de Express
+Elementos de la llamada.
 
-Objeto JSON
+* Método HTTP
+* Ruta
+* Callback. Parámetros de petición/respesta/error
+* Formato del objeto respuesta mediante middleware de Express
+
+![04_parametros.png](img/04_parametros.png)
+
+Creamos una petición GET que nos devuelve un objeto JSON
 
 ```javascript
 // server.js
@@ -239,7 +232,7 @@ app.get('/pelicula', function(req, res) {
 })
 ```
 
-Podemos pasar arrays de objetos
+Podemos pasar arrays de objetos.
 
 ```javascript
 
@@ -293,19 +286,17 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
 
 ## POST
 
-Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesita instalar un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser). 
-
-body-parser extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
-
-- bodyParser.urlencoded () : analiza el texto como datos codificados de URL (que es la forma en que los navegadores tienden a enviar datos de formularios de formularios regulares establecidos a POST) y expone el objeto resultante (que contiene las claves y valores) en req.body. Para comparacion; en PHP todo esto se hace automáticamente y se expone en $_POST.
-
-- bodyParser.json () : analiza el texto como JSON y expone el objeto resultante en req.body.
+Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesitamos tener instalado un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser). body-parser extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
 
 ```
 npm install body-parser --save
 ```
 
-Y lo añadimos con require a server.js
+- bodyParser.urlencoded () : analiza el texto como datos codificados de URL (formularios POST) y expone el objeto resultante (que contiene las claves y valores) en req.body. 
+- bodyParser.json () : analiza el texto como JSON y expone el objeto resultante en req.body.
+
+
+Lo añadimos a *server.js* con require()
 
 ```javascript
 // server.js
@@ -319,7 +310,9 @@ app.use(bodyParser.urlencoded({
 }));
 ```
 
-Para probarlo podemos usar CURL
+### Testeo de petición POST
+
+Para probarlo podemos usar CURL. También [disponible para Windows](https://curl.haxx.se/windows/)
 
 ```
 curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
@@ -364,17 +357,6 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
 
 ![caos](https://media.giphy.com/media/ZD8ZjehSsLDZQRKJjJ/giphy.gif)
 
-**Estructura basada en componentes**
-- /componente
-  - /cliente
-    - cliente_modelo.js
-    - cliente_controlador.js
-    - cliente_test.js
-    - ...
-  - /bar
-    - bar_modelo.js
-    - bar_controlador.js
-    - bar_test.js
 
 **Estructura en arquitectura lógica**
 - /controladores
@@ -391,6 +373,18 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
   - cliente_test.js
   - bar_test.js
 
+  **Estructura basada en componentes**
+- /componente
+  - /cliente
+    - cliente_modelo.js
+    - cliente_controlador.js
+    - cliente_test.js
+    - ...
+  - /bar
+    - bar_modelo.js
+    - bar_controlador.js
+    - bar_test.js
+
   Creamos las carpetas:
 
   - /models
@@ -399,10 +393,10 @@ Es necesario crear una **estructura básica**. Node te da libertad para ello. Pe
 
 # 06 Manejadores de rutas. 
 
-Al independizar/agrupar archivos en carpetas/fciheros debemos configurarlos para que pueden ser leídos desde otros módulos
+Al independizar/agrupar archivos en carpetas/fiheros debemos configurarlos para que pueden ser leídos desde otros módulos
 
-- Llamamos a un módulo mediante la función require()
-- Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con:
+- Llamamos a un módulo mediante la función *require()*
+- Para permitir que las funciones o variables de un módulo puedan ser usadadas debemos indicarlo con *module.export*:
 
 ```javascript
 
@@ -415,12 +409,13 @@ module.export = {
 }
 ```
 
-Vamos a aplicar este concepto para separa nuestro archivo de rutas
+Vamos a aplicar este concepto para separar nuestro archivo de rutas.
 
-- Creamos archivo *peliculasRoute.js*
-- Obtenemos los módulos necesarios
+- Borramos las peticiones del archivo *server.js*
+- Creamos archivo *peliculasRoute.js* dentro de la carpeta */routes*
+- Obtenemos los módulos necesarios.
 - Vamos a crear las rutas para nuestro CRUD. 
-- Debemos añadir el método que exporta las variables y funciones
+- Debemos añadir el método que exporta las variables y funciones.
 
 ```Javascript
 
@@ -430,10 +425,16 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/peliculas', function(req, res) {
-    res.send("GET  listado de peliculas")
+    res.send("GET  listado de películas")
 })
 router.get('/peliculas/:id', function(req, res) {
     res.send("GET pelicula por ID")
+})
+router.get('/peliculas/titulo/:titulo', function(req, res) {
+    res.send("GET busca película texto del título")
+})
+router.get('/peliculas/cartelera/:encartelera', function(req, res) {
+    res.send("GET listado de películas que están/no están en cartelera")
 })
 router.post('/peliculas', function(req, res) {
     res.send("POST Nueva película")
@@ -448,8 +449,7 @@ router.delete('/peliculas/:id', function(req, res) {
 module.exports = router;
 ```
 
-
-- Usamos require para usar el nuevo archivo en server.js y lo usamos añadiendo el prefijo /api a todas las peticiones creadas en el archivo
+- Usamos *require()* para añadir las nuevas funciones en *server.js*. Las nuevas entradas de nuestra API Rest usarán el prefijo **/api**
 
 ```Javascript
 
@@ -465,7 +465,7 @@ app.use('/api', apiRoutes);
 
 # 07 Conexión a la BBDD con Mongoose
 
-- Revisar si tenemos mongo instalado
+- Revisar si tenemos MongoDB instalado.
 
 REVISARRRRRRRRRRRRRRRRR WIN
 
@@ -473,23 +473,25 @@ REVISARRRRRRRRRRRRRRRRR WIN
 mongo
 ```
 
-- Linux. Comprobamos que tenemos el servidor de Mongo DB iniciado.
+- Linux. Comprobamos que tenemos el servidor de MongoDB iniciado.
 
 ```
 sudo service mongod status
 ```
 
-Para iniciar/parar
+- Para iniciar/parar el servicio
 
 ```
 sudo service mongod start
 sudo service mongod stop
 ```
 
-**GUI**
+**GUI para MongoDB**
 
-- [Compass](https://www.mongodb.com/products/compass)
-- Robo 3T [https://robomongo.org/](https://robomongo.org/)
+Podemos facilitarnos la vida usando alguno de estos programas para gestionar nuestra DB No Relacional.
+
+- [Compass](https://www.mongodb.com/products/compass) viene con la instalación de MongoDB
+- Robo3T [https://robomongo.org/](https://robomongo.org/)
 
 ![Robo 3T](07_robo3t.png)
 
@@ -515,6 +517,7 @@ npm i mongoose -S
 
 const mongoose = require('mongoose');
 
+
 mongoose.connect('mongodb://localhost:27017/apipeliculas', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -527,7 +530,7 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
 
 # 08 Modelos
 
-- Dentro de la caperpeta */models* creamo nuestro modelo Pelicula.js
+- Dentro de la carpeta */models* creamos nuestro modelo Pelicula.js
 
 ```javascript
 
@@ -549,15 +552,22 @@ module.exports = mongoose.model("Pelicula", pelicualSchema);
 
 Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 
-- Ejecutamos el archivo addPeliculas.js para añadir unas películas de ejemplo.
+## Cargamos datos de ejemplo
+
+- Ejecutamos el archivo *addPeliculas.js* para añadir unas películas de ejemplo.
+
+```
+node addPeliculas
+```
 
 # 09 Controladores
 
 Estos archivos van a almacenar la lógica de nuestro proyecto.
 
-## 1 GET con find()
+## 1 GET Listado de películas con find()
+
 - Nuevo archivo *peliculasController.js* en la carpeta */controllers*
-- Creamos la primera función que nos va a devolver el listo de películas. para ellos usamos la función *find()*
+- Creamos la primera función que nos va a devolver el listado de películas. Para ellos usamos la función *find()*
 
 ```javascript
 
@@ -587,7 +597,7 @@ module.exports = {
 
 ```
 
-- Cambiamos la función genérica usada en el archivo de rutas para que use la función definida en el controlador. Antes debemos importar el archivo y luego añadir la función correspodinete.
+- Cambiamos la función genérica usada en el archivo de rutas para que use la función definida en el controlador. Antes debemos importar el archivo y luego añadir la función correspodiente.
 
 ```javascript
 
@@ -604,7 +614,7 @@ router.get('/peliculas', peliculaController.peliculaList)
 
 [http://localhost:3000/api/peliculas](http://localhost:3000/api/peliculas)
 
-## 2 GET con *findById()*
+## 2 GET Detalle de pelígula por id *findById()*
 
 - Usamos la función *findById()*  y la añadimos al array para exportarla
 
@@ -638,7 +648,7 @@ module.exports = {
 
 ![08_test_api_detail.gif](img/08_test_api_detail.gif)
 
-## 3 GET *find()* sobre un campos
+## 3 GET Películas en cartelera *find()* sobre un campo
 
 - Peliculas en cartelera y devolver total
 
@@ -667,9 +677,8 @@ const peliculaByCartelera = (req, res) => {
 
 [http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
 
-## 4 GET *find()* y sort
 
-- Opciones de sort, limit, campos a devolver...
+- Podemos ordernar el resultado
 
 ```javascript
 // controllers/peliculasController.js
@@ -692,9 +701,10 @@ const peliculaByCartelera = (req, res) => {
 };
 ```
 
-## 5 GET find() Película por título con Expresión regular
+## 5 GET Búsqueda de película por texto en find() y  Expresión regular
 
-- Usamos una expresión regular para buscar una cadena de texto en el título
+- Usamos una expresión regular para buscar una cadena de texto en el título.
+
 ```javascript
 
 // controllers/peliculasController.js
@@ -739,7 +749,7 @@ const peliculaByTitle = (req, res) => {
 ```
 
 
-## 6 POST save()
+## 6 POST Crear nueva película save()
 
 - Creamos la función.
 - La hacemos exportable dentro del módulo
@@ -788,7 +798,7 @@ module.exports = {
 };
 ```
 
-## 7 PUT findByIdAndUpdate()
+## 7 PUT Actualizar datos de una película findByIdAndUpdate()
 
 - Creamos la función.
 - La hacemos exportable dentro del módulo
@@ -843,7 +853,7 @@ module.exports = {
 ```
 
 
-## 8 DELETE findByIdAndRemove()
+## 8 DELETE Borrar película findByIdAndRemove()
 
 - Creamos la función.
 - La hacemos exportable dentro del módulo
