@@ -2,16 +2,24 @@
 
 Taller sobre Nodejs, API Rest y MongoDB impartido en las II Jornadas de Informática 2020 del IES Trassierra.
 
-0. [ Requisitos. ](#00)
-1. [ Hola Mundo con Node. ](#01)
-2. [ Iniciar proyecto e instalando módulos con npm. ](#02)
-3. [ Requisitos. ](#03)
-4. [ Requisitos. ](#04)
-5. [ Requisitos. ](#02)
+<a name="contenidos"></a>
+# Tabla de contenidos
+00. [ Requisitos. ](#00)
+01. [ Hola Mundo con Node. ](#01)
+02. [ Iniciar proyecto e instalando módulos con npm. ](#02)
+03. [ Requisitos. ](#03)
+04. [ Requisitos. ](#04)
+05. [ Requisitos. ](#05)
+06. [ Requisitos. ](#06)
+07. [ Requisitos. ](#07)
+08. [ Requisitos. ](#08)
+09. [ Controladores. ](#09)
+
 
 
 <a name="00"></a>
 # 00 Requisitos
+[ Contenidos. ](#contenidos)
 
 - [Nodejs](https://nodejs.org/es/)
 - [npm]()
@@ -140,7 +148,7 @@ npm install express -S
 
 ![dependencias](img/03_dependencias.png)
 
-
+<a name="03"></a>
 # 03 Servidor con Express
 
 - Creamos el archivo *server.js* y añadimos el siguiente código.
@@ -215,6 +223,7 @@ npm run dev
 
 ![Nodemon funcionando](img/04_nodemon_funcionando.png)
 
+<a name="04"></a>
 # 04 Peticiones HTTP
 
 ## GET
@@ -362,7 +371,7 @@ app.post('/nuevo', function(req, res) {
 
 });
 ```
-
+<a name="05"></a>
 # 05 Estructura del proyecto
 
 Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
@@ -405,6 +414,7 @@ Vamos a usar una estructura basada en la arquitectura lógica. Creamos las sigui
   - /controllers
   - /routes
 
+<a name="06"></a>
 # 06 Manejadores de rutas. 
 
 Al independizar/agrupar archivos en carpetas/fiheros debemos configurarlos para que pueden ser leídos desde otros módulos
@@ -479,6 +489,7 @@ app.use('/api', apiRoutes);
 
 - Probamos en Postman
 
+<a name="07"></a>
 # 07 Conexión a la BBDD con Mongoose
 
 - Revisar si tenemos MongoDB instalado.
@@ -543,7 +554,7 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
         (err) => { console.log(`Error en la conexión a la DB${err}`); },
     );
 ```
-
+<a name="08"></a>
 # 08 Modelos
 
 - Dentro de la carpeta */models* creamos nuestro modelo Pelicula.js
@@ -575,7 +586,7 @@ Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 ```
 node addPeliculas
 ```
-
+<a name="09"></a>
 # 09 Controladores
 
 Estos archivos van a almacenar la lógica de nuestro proyecto.
