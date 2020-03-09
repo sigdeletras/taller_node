@@ -597,7 +597,7 @@ Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 - Ejecutamos el archivo *addPeliculas.js* para añadir unas películas de ejemplo.
 
 ```
-node addPeliculas
+node data/addPeliculas
 ```
 <a name="09"></a>
 # 09 Controladores
