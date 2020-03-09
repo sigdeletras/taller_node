@@ -607,12 +607,12 @@ Estos archivos van a almacenar la lógica de nuestro proyecto.
 
 ## 1 GET Listado de películas con find()
 
-- Nuevo archivo *peliculasController.js* en la carpeta */controllers*
+- Nuevo archivo *peliculaController.js* en la carpeta */controllers*
 - Creamos la primera función que nos va a devolver el listado de películas. Para ellos usamos la función *find()*
 
 ```javascript
 
-// Archivo: controllers/peliculasController.js
+// Archivo: controllers/peliculaController.js
 
 // Añadimos el modelo
 const Pelicula = require("../models/Pelicula");
@@ -642,9 +642,9 @@ module.exports = {
 
 ```javascript
 
-//Archivo: peliculasRouter.js
+//Archivo: peliculaRouter.js
 
-const peliculaController = require('../controllers/peliculasController')
+const peliculaController = require('../controllers/peliculaController')
 
 
 router.get('/peliculas', peliculaController.peliculaList)
@@ -660,7 +660,7 @@ router.get('/peliculas', peliculaController.peliculaList)
 - Usamos la función *findById()*  y la añadimos al array para exportarla
 
 ```javascript
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // GET Detalle de PELICULA por ID
 const peliculaDetail = (req, res) => {
@@ -694,7 +694,7 @@ module.exports = {
 - Peliculas en cartelera y devolver total
 
 ```javascript
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // Peliculas en cartelera con  total de resultados
 const peliculaByCartelera = (req, res) => {
@@ -722,7 +722,7 @@ const peliculaByCartelera = (req, res) => {
 - Podemos ordernar el resultado
 
 ```javascript
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // GET Películas en cartelera con  total de resultados
 const peliculaByCartelera = (req, res) => {
@@ -748,7 +748,7 @@ const peliculaByCartelera = (req, res) => {
 
 ```javascript
 
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // Detalle de PELICULA por Título
 const peliculaByTitle = (req, res) => {
@@ -771,7 +771,7 @@ const peliculaByTitle = (req, res) => {
 - Búsqueda por texto en título usando expresión regular.
 
 ```javascript
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // Detalle de PELICULA por Título
 const peliculaByTitle = (req, res) => {
@@ -800,7 +800,7 @@ const peliculaByTitle = (req, res) => {
 
 ```javascript
 
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // POST Crea Película
 const peliculaCreate = (req, res) => {
@@ -849,7 +849,7 @@ module.exports = {
 
 ```javascript
 
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // PUT Actualiza Película
 
@@ -904,7 +904,7 @@ module.exports = {
 
 ```javascript
 
-// controllers/peliculasController.js
+// controllers/peliculaController.js
 
 // DELETE Borrar película
 const peliculaDelete = (req, res) => {
