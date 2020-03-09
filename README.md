@@ -532,7 +532,7 @@ Podemos facilitarnos la vida usando alguno de estos programas para gestionar nue
 - [Compass](https://www.mongodb.com/products/compass) viene con la instalación de MongoDB
 - Robo3T [https://robomongo.org/](https://robomongo.org/)
 
-![Robo 3T](07_robo3t.png)
+![Robo 3T](img/07_robo3t.png)
 
 ## Conexión mediante Mongoose
 
