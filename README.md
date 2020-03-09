@@ -335,23 +335,6 @@ app.use(bodyParser.urlencoded({
 }));
 ```
 
-### Testeo de petición POST
-
-Para probarlo podemos usar CURL. También [disponible para Windows](https://curl.haxx.se/windows/)
-
-```
-curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
-```
-
-Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
-
-- Instalamos *Postman* y probamos la petición POST.
-    - Selecionamos POST como tipo de petición
-    - Introducimos la url
-    - Simularemos la entrada desde un formulario  eligiendo en la sección *body* e indicamos que el tipo de contenido es *x-www-form-urlencoded*
-
-![Postman](img/04_postman.png)
-
 - Modificamos el código para forzar que los datos existan y añadir un mensaje de error.
 
 ```javascript
@@ -375,6 +358,24 @@ app.post('/nuevo', function(req, res) {
 
 });
 ```
+
+### Testeo de petición POST
+
+Para probarlo podemos usar CURL. También [disponible para Windows](https://curl.haxx.se/windows/)
+
+```
+curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
+```
+
+Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
+
+- Instalamos *Postman* y probamos la petición POST.
+    - Selecionamos POST como tipo de petición
+    - Introducimos la url
+    - Simularemos la entrada desde un formulario  eligiendo en la sección *body* e indicamos que el tipo de contenido es *x-www-form-urlencoded*
+
+![Postman](img/04_postman.png)
+
 <a name="05"></a>
 # 05 Estructura del proyecto
 [Ir Contenidos ](#contenidos)
