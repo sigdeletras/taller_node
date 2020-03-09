@@ -282,6 +282,7 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
     res.send('DNI: ' + req.params.id);
 });
 ```
+Más info sobre [rounting con Express](https://expressjs.com/es/guide/routing.html)
 
 ## POST
 
