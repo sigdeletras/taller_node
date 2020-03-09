@@ -419,6 +419,10 @@ Vamos a usar una estructura basada en la arquitectura lógica. Creamos las sigui
   - /models
   - /controllers
   - /routes
+  
+```
+mkdir controllers routes models
+```
 
 <a name="06"></a>
 # 06 Manejadores de rutas. 
