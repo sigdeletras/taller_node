@@ -4,22 +4,22 @@ Taller sobre Nodejs, API Rest y MongoDB impartido en las II Jornadas de Informá
 
 <a name="contenidos"></a>
 # Tabla de contenidos
-00. [ Requisitos. ](#00)
-01. [ Hola Mundo con Node. ](#01)
+00. [ Requisitos ](#00)
+01. [ Hola Mundo con Node ](#01)
 02. [ Iniciar proyecto e instalando módulos con npm. ](#02)
-03. [ Requisitos. ](#03)
-04. [ Requisitos. ](#04)
-05. [ Requisitos. ](#05)
-06. [ Requisitos. ](#06)
-07. [ Requisitos. ](#07)
-08. [ Requisitos. ](#08)
-09. [ Controladores. ](#09)
+03. [ Servidor con Express ](#03)
+04. [ 04 Peticiones HTTP ](#04)
+05. [ Estructura del proyecto ](#05)
+06. [ Manejadores de rutas.  ](#06)
+07. [ Conexión a la BBDD con Mongoose ](#07)
+08. [ Modelos ](#08)
+09. [ Controladores ](#09)
 
 
 
 <a name="00"></a>
 # 00 Requisitos
-[ Contenidos. ](#contenidos)
+[Ir Contenidos ](#contenidos)
 
 - [Nodejs](https://nodejs.org/es/)
 - [npm]()
@@ -70,6 +70,7 @@ npm -v
 
 <a name="01"></a>
 # 01 'Hola mundo' con Javascript
+[Ir Contenidos ](#contenidos)
 
 - Creamos un archivo *holamundo.js*
 
@@ -87,6 +88,7 @@ node holamundo.js
 ```
 <a name="02"></a>
 # 02 Iniciar proyecto e instalando módulos con npm
+[Ir Contenidos ](#contenidos)
 
 Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto, instalar, desinstalar dependencias, buscar paquetes...
 
@@ -150,6 +152,7 @@ npm install express -S
 
 <a name="03"></a>
 # 03 Servidor con Express
+[Ir Contenidos ](#contenidos)
 
 - Creamos el archivo *server.js* y añadimos el siguiente código.
 
@@ -225,6 +228,7 @@ npm run dev
 
 <a name="04"></a>
 # 04 Peticiones HTTP
+[Ir Contenidos ](#contenidos)
 
 ## GET
 
@@ -373,6 +377,7 @@ app.post('/nuevo', function(req, res) {
 ```
 <a name="05"></a>
 # 05 Estructura del proyecto
+[Ir Contenidos ](#contenidos)
 
 Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
 
@@ -416,6 +421,7 @@ Vamos a usar una estructura basada en la arquitectura lógica. Creamos las sigui
 
 <a name="06"></a>
 # 06 Manejadores de rutas. 
+[Ir Contenidos ](#contenidos)
 
 Al independizar/agrupar archivos en carpetas/fiheros debemos configurarlos para que pueden ser leídos desde otros módulos
 
@@ -491,6 +497,7 @@ app.use('/api', apiRoutes);
 
 <a name="07"></a>
 # 07 Conexión a la BBDD con Mongoose
+[Ir Contenidos ](#contenidos)
 
 - Revisar si tenemos MongoDB instalado.
 
@@ -556,6 +563,7 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
 ```
 <a name="08"></a>
 # 08 Modelos
+[Ir Contenidos ](#contenidos)
 
 - Dentro de la carpeta */models* creamos nuestro modelo Pelicula.js
 
@@ -588,6 +596,7 @@ node addPeliculas
 ```
 <a name="09"></a>
 # 09 Controladores
+[Ir Contenidos ](#contenidos)
 
 Estos archivos van a almacenar la lógica de nuestro proyecto.
 
