@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
 const chai = require('chai');
 const expect = chai.expect;
 
 
+const { Schema } = mongoose;
 // Create a new schema that accepts a 'name' object.
 // 'name' is a required field
 const testSchema = new Schema({
     name: { type: String, required: true }
 });
-
 
 //Create a new collection called 'Name'
 const Name = mongoose.model('Name', testSchema);
@@ -19,11 +19,10 @@ describe('Database Tests', function() {
     //Before starting the test, create a sandboxed database connection
     //Once a connection is established invoke done()
     before(function(done) {
-        mongoose.connect('mongodb://localhost/testDatabase');
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', function() {
-            console.log('We are connected to test database!');
+        const dbTest = mongoose.connection;
+        dbTest.on('error', console.error.bind(console, 'Error de conexión'));
+        dbTest.once('open', function() {
+            console.log('Conexión a la bbdd de test!');
             done();
         });
     });
@@ -55,10 +54,12 @@ describe('Database Tests', function() {
             });
         });
     });
+
+
     //After all tests are finished drop database and close connection
-    after(function(done) {
-        mongoose.connection.db.dropDatabase(function() {
-            mongoose.connection.close(done);
-        });
-    });
+    // after(function(done) {
+    //     mongoose.connection.db.dropDatabase(function() {
+    //         mongoose.connection.close(done);
+    //     });
+    // });
 });

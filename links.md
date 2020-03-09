@@ -19,6 +19,9 @@ Test mocha /chai
 - https://www.paradigmadigital.com/dev/testeo-api-rest-mocha-chai-http/
 - https://dev.to/easybuoy/testing-node-api-with-mocha-chai-248b
 
+https://stackoverflow.com/questions/18941736/ensuring-express-app-is-running-before-each-mocha-test
+
+
 MOngo Windows
 
 - https://tutobasico.com/instalar-mongodb-win10/
