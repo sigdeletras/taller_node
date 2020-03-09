@@ -1,6 +1,6 @@
-# _Montando una APIRest con Nodejs, Express y MongoDB
+# Crear una API Rest con Node.js y MongoDB
 
-Taller sobre Nodejs, API Rest y Mongo impartido en las II Jornadas de Informática 2020 del IES Trassierra.
+Taller sobre Nodejs, API Rest y MongoDB impartido en las II Jornadas de Informática 2020 del IES Trassierra.
 
 # 00 Requisitos
 
@@ -266,9 +266,8 @@ Cons *req.params* podemos usar los parámetros de la petición.
 
 app.get('/usuario/:nombre/:edad', function(req, res) {
     let nombre = req.params.nombre
-    let edad = req.params.edad
-
-    res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
+  
+    res.send(`Hola ${nombre}`)
 })
 
 ```
