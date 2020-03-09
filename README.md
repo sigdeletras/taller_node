@@ -4,16 +4,16 @@ Taller sobre Nodejs, API Rest y MongoDB impartido en las II Jornadas de Informá
 
 <a name="contenidos"></a>
 # Tabla de contenidos
-00. [ Requisitos ](#00)
-01. [ Hola Mundo con Node ](#01)
-02. [ Iniciar proyecto e instalando módulos con npm. ](#02)
+00. [Requisitos ](#00)
+01. [Hola Mundo con Node ](#01)
+02. [Iniciar proyecto e instalando módulos con npm. ](#02)
 03. [ Servidor con Express ](#03)
-04. [ 04 Peticiones HTTP ](#04)
-05. [ Estructura del proyecto ](#05)
-06. [ Manejadores de rutas.  ](#06)
-07. [ Conexión a la BBDD con Mongoose ](#07)
-08. [ Modelos ](#08)
-09. [ Controladores ](#09)
+04. [Peticiones HTTP ](#04)
+05. [Estructura del proyecto ](#05)
+06. [Manejadores de rutas.  ](#06)
+07. [Conexión a la BBDD con Mongoose ](#07)
+08. [Modelos ](#08)
+09. [Controladores ](#09)
 
 
 
