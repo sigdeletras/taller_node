@@ -1,8 +1,25 @@
-# _Montando una APIRest con Nodejs, Express y MongoDB
+# Crear una API Rest con Node.js y MongoDB
 
-Taller sobre Nodejs, API Rest y Mongo impartido en las II Jornadas de Informática 2020 del IES Trassierra.
+Taller sobre Nodejs, API Rest y MongoDB impartido en las II Jornadas de Informática 2020 del IES Trassierra.
 
+<a name="contenidos"></a>
+# Tabla de contenidos
+00. [Requisitos ](#00)
+01. [Hola Mundo con Node ](#01)
+02. [Iniciar proyecto e instalando módulos con npm. ](#02)
+03. [ Servidor con Express ](#03)
+04. [Peticiones HTTP ](#04)
+05. [Estructura del proyecto ](#05)
+06. [Manejadores de rutas.  ](#06)
+07. [Conexión a la BBDD con Mongoose ](#07)
+08. [Modelos ](#08)
+09. [Controladores ](#09)
+
+
+
+<a name="00"></a>
 # 00 Requisitos
+[Ir Contenidos ](#contenidos)
 
 - [Nodejs](https://nodejs.org/es/)
 - [npm]()
@@ -51,7 +68,9 @@ npm -v
 
 - [Install MongoDB Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
+<a name="01"></a>
 # 01 'Hola mundo' con Javascript
+[Ir Contenidos ](#contenidos)
 
 - Creamos un archivo *holamundo.js*
 
@@ -67,8 +86,9 @@ console.log("Hola IES Trassierra')
 ```
 node holamundo.js
 ```
-
+<a name="02"></a>
 # 02 Iniciar proyecto e instalando módulos con npm
+[Ir Contenidos ](#contenidos)
 
 Además de ser el instalador de paquetes de Node, **npm** permite lanzar comandos para iniciar un proyecto, instalar, desinstalar dependencias, buscar paquetes...
 
@@ -130,8 +150,9 @@ npm install express -S
 
 ![dependencias](img/03_dependencias.png)
 
-
+<a name="03"></a>
 # 03 Servidor con Express
+[Ir Contenidos ](#contenidos)
 
 - Creamos el archivo *server.js* y añadimos el siguiente código.
 
@@ -205,7 +226,9 @@ npm run dev
 
 ![Nodemon funcionando](img/04_nodemon_funcionando.png)
 
+<a name="04"></a>
 # 04 Peticiones HTTP
+[Ir Contenidos ](#contenidos)
 
 ## GET
 
@@ -266,9 +289,8 @@ Cons *req.params* podemos usar los parámetros de la petición.
 
 app.get('/usuario/:nombre/:edad', function(req, res) {
     let nombre = req.params.nombre
-    let edad = req.params.edad
-
-    res.send(`Hola ${nombre}. Tienes  ${edad} años.`)
+  
+    res.send(`Hola ${nombre}`)
 })
 
 ```
@@ -283,6 +305,7 @@ app.get('/dni/:id([0-9]{8}[A-Z]{1})', function(req, res) {
     res.send('DNI: ' + req.params.id);
 });
 ```
+Más info sobre [rounting con Express](https://expressjs.com/es/guide/routing.html)
 
 ## POST
 
@@ -312,23 +335,6 @@ app.use(bodyParser.urlencoded({
 }));
 ```
 
-### Testeo de petición POST
-
-Para probarlo podemos usar CURL. También [disponible para Windows](https://curl.haxx.se/windows/)
-
-```
-curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
-```
-
-Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
-
-- Instalamos *Postman* y probamos la petición POST.
-    - Selecionamos POST como tipo de petición
-    - Introducimos la url
-    - Simularemos la entrada desde un formulario  eligiendo en la sección *body* e indicamos que el tipo de contenido es *x-www-form-urlencoded*
-
-![Postman](img/04_postman.png)
-
 - Modificamos el código para forzar que los datos existan y añadir un mensaje de error.
 
 ```javascript
@@ -353,7 +359,26 @@ app.post('/nuevo', function(req, res) {
 });
 ```
 
+### Testeo de petición POST
+
+Para probarlo podemos usar CURL. También [disponible para Windows](https://curl.haxx.se/windows/)
+
+```
+curl --data "nombre=Pepe&edad=30" -X POST http://localhost:3000/nuevo
+```
+
+Pero es más cómodo usar herramientas para testear API como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)
+
+- Instalamos *Postman* y probamos la petición POST.
+    - Selecionamos POST como tipo de petición
+    - Introducimos la url
+    - Simularemos la entrada desde un formulario  eligiendo en la sección *body* e indicamos que el tipo de contenido es *x-www-form-urlencoded*
+
+![Postman](img/04_postman.png)
+
+<a name="05"></a>
 # 05 Estructura del proyecto
+[Ir Contenidos ](#contenidos)
 
 Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
 
@@ -395,7 +420,9 @@ Vamos a usar una estructura basada en la arquitectura lógica. Creamos las sigui
   - /controllers
   - /routes
 
+<a name="06"></a>
 # 06 Manejadores de rutas. 
+[Ir Contenidos ](#contenidos)
 
 Al independizar/agrupar archivos en carpetas/fiheros debemos configurarlos para que pueden ser leídos desde otros módulos
 
@@ -469,7 +496,9 @@ app.use('/api', apiRoutes);
 
 - Probamos en Postman
 
+<a name="07"></a>
 # 07 Conexión a la BBDD con Mongoose
+[Ir Contenidos ](#contenidos)
 
 - Revisar si tenemos MongoDB instalado.
 
@@ -533,8 +562,9 @@ mongoose.connect('mongodb://localhost:27017/apipeliculas', {
         (err) => { console.log(`Error en la conexión a la DB${err}`); },
     );
 ```
-
+<a name="08"></a>
 # 08 Modelos
+[Ir Contenidos ](#contenidos)
 
 - Dentro de la carpeta */models* creamos nuestro modelo Pelicula.js
 
@@ -565,8 +595,9 @@ Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 ```
 node addPeliculas
 ```
-
+<a name="09"></a>
 # 09 Controladores
+[Ir Contenidos ](#contenidos)
 
 Estos archivos van a almacenar la lógica de nuestro proyecto.
 
