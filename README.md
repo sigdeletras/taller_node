@@ -580,12 +580,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const peliculaSchema = new Schema({
-    titulo: {type: String},
-    anio: {type: Number},
-    encartelera: {type: Boolean},
+    titulo: { type: String },
+    anio: { type: Number },
+    encartelera: { type: Boolean },
 });
 
-module.exports = mongoose.model("Pelicula", pelicualSchema);
+module.exports = mongoose.model("Pelicula", peliculaSchema);
 ```
 
 ![ShemaType](img/08_shema_types_mongoose.png)
