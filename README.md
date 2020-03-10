@@ -691,35 +691,8 @@ module.exports = {
 
 ## 3 GET Películas en cartelera *find()* sobre un campo
 
-- Peliculas en cartelera y devolver total
+- Películas según cartelera, con total de resultados con *length* y ordenados por año.
 
-```javascript
-// controllers/peliculaController.js
-
-// Peliculas en cartelera con  total de resultados
-const peliculaByCartelera = (req, res) => {
-    let { encartelera } = req.params;
-
-    Pelicula.find({ encartelera }, (err, pelicula) => {
-        if (err) {
-            res.json({
-                status: 0,
-                message: "No existe registros ",
-            });
-        } else res.json({
-                'total': pelicula.length,
-                pelicula
-            }
-
-        );
-    });
-};
-```
-
-[http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
-
-
-- Podemos ordernar el resultado
 
 ```javascript
 // controllers/peliculaController.js
@@ -742,33 +715,12 @@ const peliculaByCartelera = (req, res) => {
 };
 ```
 
+[http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
+
+
 ## 5 GET Búsqueda de película por texto en find() y  Expresión regular
 
 - Usamos una expresión regular para buscar una cadena de texto en el título.
-
-```javascript
-
-// controllers/peliculaController.js
-
-// Detalle de PELICULA por Título
-const peliculaByTitle = (req, res) => {
-    let { titulo } = req.params;
-
-    Pelicula.find({ titulo }, (err, pelicula) => {
-        if (err) {
-            res.json({
-                status: 0,
-                message: "No existe un PELICULA con ese título ",
-            });
-        } else res.json(pelicula);
-    });
-};
-```
-
-[http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs](http://localhost:3000/api/peliculas/titulo/Reservoir%20dogs)
-
-
-- Búsqueda por texto en título usando expresión regular.
 
 ```javascript
 // controllers/peliculaController.js
@@ -787,6 +739,13 @@ const peliculaByTitle = (req, res) => {
     });
 };
 
+module.exports = {
+    peliculaList,
+    peliculaDetail,
+    peliculaByTitle,
+    peliculaByCartelera,
+  
+};
 ```
 
 
