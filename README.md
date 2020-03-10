@@ -64,6 +64,15 @@ npm -v
 
 - [Install Mongodb on windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
+La instalación debe realizarse como servicio.
+
+![mongo win](img/mongo/03.PNG)
+
+Debemos comprobar que esté en ejecuación
+
+
+![mongo servicios](img/mongo/06_servicios.PNG)
+
 **Linux**
 
 - [Install MongoDB Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
@@ -599,6 +608,12 @@ Ver [parámetros](https://mongoosejs.com/docs/schematypes.html#)
 ```
 node data/addPeliculas
 ```
+
+- Revisamos que se han añadido los datos, por ejemplo con Robo 3T
+
+![Robo 3T](img/robo3t.png)
+
+
 <a name="09"></a>
 # 09 Controladores
 [Ir Contenidos ](#contenidos)

@@ -1,4 +1,4 @@
-const Pelicula = require("../models/Pelicula");
+const Pelicula = require("./Pelicula");
 const mongoose = require('mongoose');
 
 // Realizamos la conexión
@@ -16,7 +16,6 @@ var db = mongoose.connection;
 
 db.once('open', function() {
 
-
     // Array de pelis
     let pelis = [
         { titulo: 'Start Wars. El retorno del Jedi', anio: 1976, encartelera: false },
@@ -25,11 +24,13 @@ db.once('open', function() {
         { titulo: 'La trinchera infinita', anio: 2019, encartelera: true }
     ];
 
+
     Pelicula.collection.insert(pelis, function(err, docs) {
         if (err) {
             return console.error(err);
         } else {
             console.log("Insertadas varias películas");
+
         }
     });
 
