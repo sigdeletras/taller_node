@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const peliculaController = require('../controllers/peliculasController')
+const peliculaController = require('../controllers/peliculaController')
 
 // router.get('/peliculas', function(req, res) {
 //     res.send("GET  listado de peliculas")

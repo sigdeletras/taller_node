@@ -16,18 +16,6 @@ var db = mongoose.connection;
 
 db.once('open', function() {
 
-    let peli = new Pelicula({
-        titulo: 'Reservoir dogs',
-        anio: 1992,
-        encartelera: false
-    });
-
-    // Guardamos en la DB
-    // peli.save(function(err, Pelicula) {
-    //     if (err) return console.error(err);
-    //     console.log(`La película "${peli.titulo}" ha sido guardada.`);
-    // });
-
     // Array de pelis
     let pelis = [
         { titulo: 'Start Wars. El retorno del Jedi', anio: 1976, encartelera: false },
@@ -36,13 +24,14 @@ db.once('open', function() {
         { titulo: 'La trinchera infinita', anio: 2019, encartelera: true }
     ];
 
-    // salvando varios documentos
-    // Pelicula.collection.insert(pelis, function(err, docs) {
-    //     if (err) {
-    //         return console.error(err);
-    //     } else {
-    //         console.log("Insertadas varias películas");
-    //     }
-    // });
+
+    Pelicula.collection.insert(pelis, function(err, docs) {
+        if (err) {
+            return console.error(err);
+        } else {
+            console.log("Insertadas varias películas");
+
+        }
+    });
 
 });

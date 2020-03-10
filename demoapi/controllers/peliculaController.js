@@ -1,65 +1,26 @@
+// Añadimos el modelo
 const Pelicula = require("../models/Pelicula");
 
 // GET Listado Películas
 const peliculaList = (req, res) => {
-
     Pelicula.find((err, peliculas) => {
         if (err) {
-            res.status(500).json({
-                state: 0,
-                message: "Error"
+            res.json({
+                message: "Error",
             });
-        } else {
-            res.status(200).json(peliculas);
-        }
+        } else res.json(peliculas)
     });
 };
 
-// GET Detalle de Película por ID
+// GET Detalle de PELICULA por ID
 const peliculaDetail = (req, res) => {
-
     let { id } = req.params;
-
     Pelicula.findById(id, (err, pelicula) => {
-
         if (err) {
-            res.status(500).json({
-                state: 0,
-                message: err
+            res.json({
+                message: "No existe un PELICULA con ese ID ",
             });
-        }
-
-        if (!pelicula) {
-            res.status(400).json({
-                state: 0,
-                message: "No existe una película con ese ID "
-            });
-        }
-        res.status(200).json(pelicula);
-
-    });
-};
-
-// GET Detalle de Película por Título
-const peliculaByTitle = (req, res) => {
-
-    let { titulo } = req.params;
-
-    let query = {
-        titulo: { $regex: new RegExp(titulo, "i") }
-    };
-
-    Pelicula.find(query, (err, pelicula) => {
-
-        if (err) {
-            res.status(500).json({
-                state: 0,
-                message: err
-            });
-        }
-
-        res.status(200).json(pelicula);
-
+        } else res.json(pelicula);
     });
 };
 
@@ -67,17 +28,27 @@ const peliculaByTitle = (req, res) => {
 const peliculaByCartelera = (req, res) => {
     let { encartelera } = req.params;
 
-    Pelicula.find({ encartelera }, null, { sort: { anio: -1 } }, (err, pelicula) => {
+    Pelicula.find({ encartelera }, null, { sort: { anio: -1 } }, (err, peliculas) => {
         if (err) {
-            res.status(500).json({
-                state: 0,
-                message: err
+            res.json({
+                message: "No existe registros ",
             });
-        } else
-            res.status(200).json({
-                total: pelicula.length,
-                pelicula
+        } else res.json({
+            'total': peliculas.length,
+            'peliculas': peliculas
+        });
+    });
+};
+
+const peliculaByTitle = (req, res) => {
+    let { titulo } = req.params;
+
+    Pelicula.find({ titulo: { $regex: new RegExp(titulo, "i") } }, (err, pelicula) => {
+        if (err) {
+            res.json({
+                message: "No existe un PELICULA con ese título ",
             });
+        } else res.json(pelicula);
     });
 };
 
@@ -95,30 +66,23 @@ const peliculaCreate = (req, res) => {
     pelicula
         .save()
         .then(pelicula => {
-            res.status(200).json({
-                state: 1,
+            res.json({
                 message: "Película creada",
                 pelicula
             });
         })
         .catch(err => {
-            res.status(500).send({
-                state: 0,
+            res.json({
                 message: err.message
             });
         });
 };
 
-// PUT Actualiza Película
-
-const peliculaUpdate = (req, res, next) => {
-
+const peliculaUpdate = (req, res) => {
     Pelicula.findById(req.params.id, (err, pelicula) => {
         if (!pelicula) {
-            return res.status(400).json({
-                state: 0,
+            return res.json({
                 message: "No se ha encontrado película con id indicado ",
-                message: err.message,
             });
         }
 
@@ -128,13 +92,11 @@ const peliculaUpdate = (req, res, next) => {
         Pelicula.findByIdAndUpdate(id, body, { new: true }, (err, peliculaDB) => {
 
             if (err) {
-                return res.status(500).json({
-                    state: 0,
+                return res.json({
                     message: err.message,
                 });
             }
-            res.status(200).json({
-                state: 1,
+            res.json({
                 message: "Película actualizada",
                 peliculaDB,
             });
@@ -142,33 +104,27 @@ const peliculaUpdate = (req, res, next) => {
     });
 };
 
-// DELETE Borrar película
 const peliculaDelete = (req, res) => {
-
     Pelicula.findByIdAndRemove({ _id: req.params.id }, (err, pelicula) => {
         if (err) {
-            return res.status(500).json({
-                state: 0,
+            return res.json({
                 message: err,
             });
         }
 
         if (!pelicula) {
-            return res.status(400).json({
-                state: 0,
+            return res.json({
                 message: "Película no encontrada",
             });
         }
 
-        res.status(200).json({
-            state: 1,
+        res.json({
             pelicula: pelicula.titulo,
             message: "Película borrada",
 
         });
     });
 };
-
 module.exports = {
     peliculaList,
     peliculaDetail,

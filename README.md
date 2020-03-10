@@ -621,13 +621,10 @@ const Pelicula = require("../models/Pelicula");
 const peliculaList = (req, res) => {
     Pelicula.find((err, peliculas) => {
         if (err) {
-            res.status(400).json({
-                status: 0,
+            res.json({
                 message: "Error",
             });
-        } else {
-            res.status(200).json(peliculas);
-        }
+        } else  res.json(peliculas)
     });
 };
 
@@ -668,7 +665,6 @@ const peliculaDetail = (req, res) => {
     Pelicula.findById(id, (err, pelicula) => {
         if (err) {
             res.json({
-                status: 0,
                 message: "No existe un PELICULA con ese ID ",
             });
         } else res.json(pelicula);
@@ -681,6 +677,16 @@ module.exports = {
     peliculaList,
     peliculaDetail
 };
+
+```
+
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.get('/peliculas/:id', peliculaController.peliculaDetail)
 
 ```
 - Para probar debemos copiar el id de una de las películas y añadirlas a la URL.
@@ -701,21 +707,30 @@ module.exports = {
 const peliculaByCartelera = (req, res) => {
     let { encartelera } = req.params;
 
-    Pelicula.find({ encartelera }, null, { sort: { anio: -1 } }, (err, pelicula) => {
+    Pelicula.find({ encartelera }, null, { sort: { anio: -1 } }, (err, peliculas) => {
         if (err) {
             res.json({
-                status: 0,
                 message: "No existe registros ",
             });
         } else res.json({
-            'total': pelicula.length,
-            pelicula
+            'total': peliculas.length,
+            'peliculas': peliculas
         });
     });
 };
 ```
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.get('/peliculas/titulo/:titulo', peliculaController.peliculaByTitle)
+
+```
 
 [http://localhost:3000/api/peliculas/cartelera/false](http://localhost:3000/api/peliculas/cartelera/false)
+
 
 
 ## 5 GET Búsqueda de película por texto en find() y  Expresión regular
@@ -732,7 +747,6 @@ const peliculaByTitle = (req, res) => {
     Pelicula.find({ titulo: { $regex: new RegExp(titulo, "i") } }, (err, pelicula) => {
         if (err) {
             res.json({
-                status: 0,
                 message: "No existe un PELICULA con ese título ",
             });
         } else res.json(pelicula);
@@ -746,6 +760,16 @@ module.exports = {
     peliculaByCartelera,
   
 };
+```
+
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.get('/peliculas/cartelera/:encartelera', peliculaController.peliculaByCartelera)
+
 ```
 
 
@@ -775,15 +799,13 @@ const peliculaCreate = (req, res) => {
     pelicula
         .save()
         .then(pelicula => {
-            res.status(200).json({
-                state: 1,
+            res.json({
                 message: "Película creada",
                 pelicula
             });
         })
         .catch(err => {
-            res.status(500).send({
-                state: 0,
+            res.json({
                 message: err.message
             });
         });
@@ -796,6 +818,16 @@ module.exports = {
     peliculaByCartelera,
     peliculaCreate,
 };
+```
+
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.post('/peliculas', peliculaController.peliculaCreate)
+
 ```
 
 ## 7 PUT Actualizar datos de una película findByIdAndUpdate()
@@ -812,14 +844,11 @@ module.exports = {
 
 // PUT Actualiza Película
 
-const peliculaUpdate = (req, res, next) => {
-
+const peliculaUpdate = (req, res) => {
     Pelicula.findById(req.params.id, (err, pelicula) => {
         if (!pelicula) {
-            return res.status(400).json({
-                state: 0,
+            return res.json({
                 message: "No se ha encontrado película con id indicado ",
-                message: err.message,
             });
         }
 
@@ -829,13 +858,11 @@ const peliculaUpdate = (req, res, next) => {
         Pelicula.findByIdAndUpdate(id, body, { new: true }, (err, peliculaDB) => {
 
             if (err) {
-                return res.status(500).json({
-                    state: 0,
+                return res.json({
                     message: err.message,
                 });
             }
-            res.status(200).json({
-                state: 1,
+            res.json({
                 message: "Película actualizada",
                 peliculaDB,
             });
@@ -849,9 +876,19 @@ module.exports = {
     peliculaByTitle,
     peliculaByCartelera,
     peliculaCreate,
+    peliculaUpdate
 };
 ```
 
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.put('/peliculas/:id', peliculaController.peliculaUpdate)
+
+```
 
 ## 8 DELETE Borrar película findByIdAndRemove()
 
@@ -867,86 +904,59 @@ module.exports = {
 
 // DELETE Borrar película
 const peliculaDelete = (req, res) => {
-
     Pelicula.findByIdAndRemove({ _id: req.params.id }, (err, pelicula) => {
         if (err) {
-            return res.status(500).json({
-                state: 0,
+            return res.json({
                 message: err,
             });
         }
 
         if (!pelicula) {
-            return res.status(400).json({
-                state: 0,
+            return res.json({
                 message: "Película no encontrada",
             });
         }
 
-        res.status(200).json({
-            state: 1,
+        res.json({
             pelicula: pelicula.titulo,
             message: "Película borrada",
 
         });
     });
 };
+
+module.exports = {
+    peliculaList,
+    peliculaDetail,
+    peliculaByTitle,
+    peliculaByCartelera,
+    peliculaCreate,
+    peliculaUpdate,
+    peliculaDelete
+};
 ```
 
-# 99 2Do
-- Control de errores
-- Securizar la API
-- Tests
-- Variables de configuración (despliegues)
+- Cambio en pelicuRouter.js
+
+```javascript
+
+//Archivo: peliculaRouter.js
+
+router.delete('/peliculas/:id', peliculaController.peliculaDelete)
+
+```
+
+# ...next time
+
+- [Manejo de errores](https://expressjs.com/es/guide/error-handling.html) 
+- Securizar la API. ej Token
+- Tests (Pruebas unitarias con [Mocha](https://mochajs.org/), [Chai](https://www.chaijs.com/))
+- Variables de configuración (despliegue)
 - Más sobre Mongoose ()
     - Fechas
     - Validaciones
     - Populates
     - get/set
-    - virtual
+    - campos Virtual
 
-
-# 99 test
-
-- Navegador
-- Uso del comando  curl
-
-```
-curl --location --request GET 'http://localhost:3000/'
-```
-- Aplicaciones para testeto de API, ej. [Postman](https://www.postman.com/).
-- Creando test. Mocha y chai nos permiten crear pruebas unitarias
-  - [Mocha](https://mochajs.org/). Marco de prueba de JavaScript para Node.js
-  - [Chai](https://www.chaijs.com/) Librería JS sobreescribe el método assert añadiendo algunas posibilidades, como comprobar que un valor es mayor o menor que uno dado, o que un objeto no es null. Chai is an assertion library, similar to Node's built-in assert. It makes testing much easier by giving you lots of assertions you can run against your code.
-  Chai tiene varias interfaces: assert, expect y should, que permiten al desarrollador elegir el estilo que le resulte más legible y cómodo a la hora de desarrollar sus tests
-
-Instalación como dependencias de desarrollo
-```
-npm install chai mocha --save-dev
-```
-
-Creamos carpeta *tests* dentro del proyacto
-
-```
-mkdir test
-```
-
-Creamos un script dentro de *package.json* para lazar nuestros test.
-
-```json
- "scripts": {
-        ...
-        "test": "mocha tests/*.js --exit",
-        ...
-    },
-```
-
-### Creando un test
-
-Describe
-
-En esta parte definimos bloques de pruebas podemos tener varios bloques de pruebas y relacionarlos entre sí en otras palabras es una descripción general de nuestras pruebas.
-
-It
-
-Los it se refiere a cada una de las pruebas es decir dentro de un describe podemos tener varios it que son las pruebas de eses describe.
+![Bye](https://media.giphy.com/media/3oriffa6h9StTOq6ly/giphy.gif)
