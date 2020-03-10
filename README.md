@@ -515,8 +515,6 @@ app.use('/api', apiRoutes);
 
 - Revisar si tenemos MongoDB instalado.
 
-REVISARRRRRRRRRRRRRRRRR WIN
-
 ```
 mongo
 ```
