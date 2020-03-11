@@ -318,7 +318,7 @@ Más info sobre [rounting con Express](https://expressjs.com/es/guide/routing.ht
 
 ## POST
 
-Para manejar la solicitud de HTTP POST en Express.js version 4 y superior, necesitamos tener instalado un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser).
+Para manejar la solicitud de HTTP POST en [Express.js version 4 y superior](https://expressjs.com/es/guide/migrating-4.html), necesitamos tener instalado un módulo de middleware llamado [body-parser](https://www.npmjs.com/package/body-parser).
 
 **body-parser** extrae toda la parte del cuerpo de una secuencia de solicitud entrante y la expone en *req.body*.
 
