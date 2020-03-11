@@ -326,11 +326,11 @@ Para manejar la solicitud de HTTP POST en [Express.js version 4 y superior](http
 npm install body-parser --save
 ```
 
-- bodyParser.urlencoded () : analiza el texto como datos codificados de URL (formularios POST) y expone el objeto resultante (que contiene las claves y valores) en req.body. 
-- bodyParser.json () : analiza el texto como JSON y expone el objeto resultante en req.body.
+- *bodyParser.urlencoded ()* : analiza el texto como datos codificados de URL (formularios POST) y expone el objeto resultante (que contiene las claves y valores) en **req.body**. 
+-* bodyParser.json* () : analiza el texto como JSON y expone el objeto resultante en **req.body**.
 
 
-Lo añadimos a *server.js* con require()
+Lo añadimos a *server.js* con la función *require()*
 
 ```javascript
 // server.js
