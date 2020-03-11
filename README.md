@@ -389,7 +389,9 @@ Pero es más cómodo usar herramientas para testear API como [Postman](https://w
 # 05 Estructura del proyecto
 [Ir Contenidos ](#contenidos)
 
-Es necesario crear una **estructura básica**. Node te da libertad para ello. Pero esta libertad también puede crear "caos".
+- Es necesario crear una **estructura básica**. 
+- Node/Express te da libertad para ello. 
+- ....pero esta libertad también puede crear "caos".
 
 ![caos](https://media.giphy.com/media/ZD8ZjehSsLDZQRKJjJ/giphy.gif)
 
