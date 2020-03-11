@@ -296,7 +296,7 @@ Cons *req.params* podemos usar los parámetros de la petición.
 ```javascript
 // server.js
 
-app.get('/usuario/:nombre/:edad', function(req, res) {
+app.get('/usuario/:nombre', function(req, res) {
     let nombre = req.params.nombre
   
     res.send(`Hola ${nombre}`)
